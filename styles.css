@@ -30,10 +30,14 @@ button { font: inherit; cursor: pointer; }
 .tab:focus-visible, .icon-link:focus-visible, .btn:focus-visible, .arrow:focus-visible, .venture:focus-visible, .card:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .contact { display: flex; flex-direction: column; gap: 12px; }
 .contact-label { margin: 0; font-family: var(--display); font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase; }
-.contact-icons { display: flex; gap: 10px; }
-.icon-link { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: #fff; text-decoration: none; border: 3px solid var(--ink); transition: border-color 0.2s, transform 0.2s; }
+.contact-icons { display: flex; flex-wrap: wrap; gap: 10px; }
+.icon-link { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: #fff; text-decoration: none; border: 3px solid var(--ink); transition: border-color 0.2s, transform 0.2s; }
 .icon-link:hover { border-color: var(--peach); transform: translateY(-2px); }
 .where { margin: 0; font-size: 14px; color: var(--muted); }
+.langs { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.langs-label { font-family: var(--display); font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase; margin-right: 6px; }
+.lang { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--ink); font-size: 16px; }
+.lang-level { font-size: 13px; color: var(--muted); }
 
 /* Pages */
 .page { display: flex; flex-direction: column; gap: 30px; }
