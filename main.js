@@ -6,14 +6,15 @@
   /* ---------- Content ---------- */
 
   var projects = [
-    { art: 'lab', period: 'Sep 2026 to now', title: 'AI-checked network labs', body: 'An automated validation workflow for Cisco Packet Tracer. An LLM-driven toolchain writes the device configurations, applies them and checks the result.', points: ['Generates, applies and verifies router and switch configurations without manual checking.', 'Covers routing, VLAN, NAT and ACL configurations, the same topics I teach.', 'Replaces the slow, manual marking of student lab work.'], tools: 'LLMs, Cisco Packet Tracer, Python' },
-    { art: 'incident', period: 'Feb to Mar 2025', title: 'UPMS security incident investigation', body: 'An incident report on a two-week attack campaign against a university web server, written with two teammates for the Cybersecurity Operations course at CMU Africa.', points: ['Worked through 1.1 million Wazuh alerts and Kibana alert rules to reconstruct the attack, from Nmap reconnaissance to Hydra brute force against SSH.', 'Found more than 16,000 web application attacks, including SQL injection, cross-site scripting and 284 Shellshock attempts, 16 of which succeeded.', 'Spotted an exposed remote desktop service and a mail service on a non-standard port that pointed to data exfiltration, and mapped each stage to MITRE ATT&CK.', 'Wrote the response plan and Ubuntu hardening scripts: firewall rules limited to admin addresses, key-only SSH with no root login, and exposed services switched off.'], tools: 'Wazuh, Kibana, MITRE ATT&CK, ufw, OpenSSH, Ubuntu' },
-    { art: 'soc', period: 'Nov to Dec 2024', title: 'A working SOC, built from scratch', body: 'A complete security operations lab, built in VirtualBox with two teammates for the Network Security course at CMU Africa.', points: ['pfSense firewall at the edge with two VLANs, one for users and one for servers: outbound traffic allowed, all inbound traffic blocked, DHCP on each VLAN.', 'Windows Server 2016 domain controller (netsec.local) with baseline group policies: password rules, account lockout, and audit logging of logons, account changes and file access.', 'ELK Stack on Ubuntu collecting pfSense syslog and Windows events through Winlogbeat, with Kibana dashboards and alert rules.', 'Snort and Suricata for intrusion detection and prevention, a Squid transparent proxy for web filtering, and OpenVPN with its own certificate authority for remote access.', 'Tested from Kali Linux: Nmap scans and Hydra brute-force attempts were detected and blocked, and inbound pings and SSH were dropped.'], tools: 'VirtualBox, pfSense, Snort, Suricata, Squid, OpenVPN, Windows Server, Active Directory, ELK Stack, Winlogbeat, Kali Linux' },
+    { art: 'lab', fig: 'lab', period: 'Sep 2026 to now', title: 'AI-checked network labs', body: 'An automated validation workflow for Cisco Packet Tracer. An LLM-driven toolchain writes the device configurations, applies them and checks the result.', points: ['Generates, applies and verifies router and switch configurations without manual checking.', 'Covers routing, VLAN, NAT and ACL configurations, the same topics I teach.', 'Replaces the slow, manual marking of student lab work.'], tools: 'LLMs, Cisco Packet Tracer, Python' },
+    { art: 'incident', fig: 'incident', period: 'Feb to Mar 2025', title: 'UPMS security incident investigation', body: 'An incident report on a two-week attack campaign against a university web server, written with two teammates for the Cybersecurity Operations course at CMU Africa.', points: ['Worked through 1.1 million Wazuh alerts and Kibana alert rules to reconstruct the attack, from Nmap reconnaissance to Hydra brute force against SSH.', 'Found more than 16,000 web application attacks, including SQL injection, cross-site scripting and 284 Shellshock attempts, 16 of which succeeded.', 'Spotted an exposed remote desktop service and a mail service on a non-standard port that pointed to data exfiltration, and mapped each stage to MITRE ATT&CK.', 'Wrote the response plan and Ubuntu hardening scripts: firewall rules limited to admin addresses, key-only SSH with no root login, and exposed services switched off.'], tools: 'Wazuh, Kibana, MITRE ATT&CK, ufw, OpenSSH, Ubuntu' },
+    { art: 'soc', fig: 'soc', period: 'Nov to Dec 2024', title: 'A working SOC, built from scratch', body: 'A complete security operations lab, built in VirtualBox with two teammates for the Network Security course at CMU Africa.', points: ['pfSense firewall at the edge with two VLANs, one for users and one for servers: outbound traffic allowed, all inbound traffic blocked, DHCP on each VLAN.', 'Windows Server 2016 domain controller (netsec.local) with baseline group policies: password rules, account lockout, and audit logging of logons, account changes and file access.', 'ELK Stack on Ubuntu collecting pfSense syslog and Windows events through Winlogbeat, with Kibana dashboards and alert rules.', 'Snort and Suricata for intrusion detection and prevention, a Squid transparent proxy for web filtering, and OpenVPN with its own certificate authority for remote access.', 'Tested from Kali Linux: Nmap scans and Hydra brute-force attempts were detected and blocked, and inbound pings and SSH were dropped.'], tools: 'VirtualBox, pfSense, Snort, Suricata, Squid, OpenVPN, Windows Server, Active Directory, ELK Stack, Winlogbeat, Kali Linux' },
     { art: 'redblue', period: 'Feb to May 2025', title: 'Attack, detect, remediate', body: 'Led a red team and blue team assessment of a critical web application for the Cybersecurity Operations course.', points: ['Ran vulnerability scans and exploited authentication flaws with Burp Suite, OWASP ZAP and Metasploit.', 'Wrote a remediation plan that ranked more than 30 high-risk vulnerabilities, cutting overall risk by 40% and moving the app toward ISO 27001.', 'Set up SIEM log analysis in the ELK Stack to correlate events and spot attack patterns, cutting incident response time by 35%.'], tools: 'ELK Stack, Wazuh, MISP, Burp Suite, OWASP ZAP, Metasploit, Wireshark' },
-    { art: 'phone', period: 'Jul to Aug 2025', title: 'ShieldKids', body: 'A child safety Android app, built during my cybersecurity internship at Shield Tech Hub in Kigali.', points: ['Delivered the MVP in a six-week Agile cycle: one app for parents, one for children.', 'Set up Firestore sync and fine-grained permissions for full screen-time tracking, keeping family data protected.', 'Ran daily code reviews and API integration tests, and kept the project confidential.'], tools: 'Android, Firebase, Firestore' },
+    { art: 'phone', fig: 'phone', period: 'Jul to Aug 2025', title: 'ShieldKids', body: 'A child safety Android app, built during my cybersecurity internship at Shield Tech Hub in Kigali.', points: ['Delivered the MVP in a six-week Agile cycle: one app for parents, one for children.', 'Set up Firestore sync and fine-grained permissions for full screen-time tracking, keeping family data protected.', 'Ran daily code reviews and API integration tests, and kept the project confidential.'], tools: 'Android, Firebase, Firestore' },
     { art: 'school', period: 'Since 2021', title: 'Usomi', body: 'A school management platform (SaaS) for secondary schools, built by Techy Ahead, the technology arm of Go Ahead RDC.', points: ['Modules for school finances, student transport, grades and administrative reporting.', 'In use by secondary schools in the DRC.', 'Techy Ahead also builds websites for companies and gives IT support to private firms.'], tools: 'SaaS, EdTech' },
     { art: 'truck', period: 'Oct 2021 to Sep 2024', title: 'IT systems for a logistics firm', body: 'Sole IT consultant for Ets Belle Vie in Goma, a company running heavy vehicles and a water distribution service.', points: ['Set up a fleet management system for more than 70 heavy vehicles: flatbeds, tractors and semi-trucks.', 'Built a backup and disaster recovery routine on Google Drive that protects ten years of financial and logistics records.', 'Built the company website in WordPress and PHP. Its monthly posts brought in four new clients in 2023 and helped launch the water service.', 'Supported more than 20 staff on QuickBooks, SAGE, Microsoft Office and Google Workspace.'], tools: 'WordPress, PHP, Google Workspace, QuickBooks, SAGE' },
     { art: 'moodle', period: 'Oct 2018 to Jul 2022', title: 'Ujuzi learning platform', body: 'The secure website and e-learning platform behind Ujuzi, the programming course I ran at CRES in Goma.', points: ['Deployed Moodle for more than 100 users.', 'Built custom workflows that automate student registration and track progress.', 'Set up user management that keeps learner data protected as the platform grows.'], tools: 'Moodle, web hosting' },
+    { art: 'agent', period: 'Sep to Nov 2026', title: 'Kaggriculture agent', link: 'https://github.com/the-genius-man/kaggriculture-agent', fig: 'agent', body: 'An agent for the Kaggle Kaggriculture farming simulation. It plays a season of planting, watering and harvesting, and is tuned by search rather than by hand.', points: ['An explicit, parameterised policy (planting phases, watering, harvest timing) that Optuna searches over.', 'A self-play league with strict promotion gates: a candidate only replaces the champion after winning measured head-to-head games.', 'Deployment diagnoses backed by evidence files, which found a cash-starved early game, crops dying of thirst and production collapsing late in the season.', 'A Kaggle and Colab notebook that runs the league, exports the agent and a resumable checkpoint, and never submits on its own.'], tools: 'Python, Optuna, Kaggle, GitHub Actions' },
     { art: 'book', period: 'Jun to Aug 2026', title: 'A book on modern networking', body: 'Contributing author on a book on modern networking, as a Research Assistant at CMU Africa.', points: ['Wrote the chapter on network security.', 'Drafted the hands-on labs.', 'Produced the diagrams and figures, and formatted the manuscript.'], tools: 'Carnegie Mellon University Africa' }
   ];
 
@@ -26,7 +27,71 @@
     school: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 52l46-24 46 24-46 24z"/><path d="M34 62v22c0 6 12 12 26 12s26-6 26-12V62"/><path d="M106 52v30"/></svg>',
     truck: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 36h62v46H12z"/><path d="M74 50h20l14 16v16H74z"/><circle cx="32" cy="88" r="9"/><circle cx="88" cy="88" r="9"/><path d="M12 82h11M41 82h38M97 82h11"/></svg>',
     moodle: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="26" width="92" height="60" rx="6"/><path d="M44 102h32M60 86v16"/><path d="M34 60l26-12 26 12-26 12z"/><path d="M48 66v10c0 3 6 6 12 6s12-3 12-6V66"/></svg>',
+    agent: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 96c20-30 40-30 60-10s26 14 32-6"/><path d="M60 40c-8-14-22-18-36-14 2 16 12 26 28 28z"/><path d="M60 40c8-14 22-18 36-14-2 16-12 26-28 28z"/><path d="M60 40v56"/><circle cx="60" cy="100" r="6"/></svg>',
     book: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 32c-10-8-24-10-42-8v66c18-2 32 0 42 8 10-8 24-10 42-8V24c-18-2-32 0-42 8z"/><path d="M60 32v66"/><path d="M28 44h20M28 58h20M72 44h20M72 58h20"/></svg>'
+  };
+
+  /* Box-and-arrow diagrams for the project details */
+  function diagram(w, h, nodes, edges, caption) {
+    var byId = {};
+    nodes.forEach(function (n) { byId[n.id] = n; });
+    var out = '<figure><svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + caption + '" font-family="Barlow, system-ui, sans-serif">';
+    out += '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>';
+    edges.forEach(function (e) {
+      var a = byId[e[0]], b = byId[e[1]];
+      var x1, y1, x2, y2;
+      if (b.x >= a.x + a.w) { x1 = a.x + a.w; y1 = a.y + a.h / 2; x2 = b.x; y2 = b.y + b.h / 2; }
+      else if (a.x >= b.x + b.w) { x1 = a.x; y1 = a.y + a.h / 2; x2 = b.x + b.w; y2 = b.y + b.h / 2; }
+      else if (b.y >= a.y + a.h) { x1 = a.x + a.w / 2; y1 = a.y + a.h; x2 = b.x + b.w / 2; y2 = b.y; }
+      else { x1 = a.x + a.w / 2; y1 = a.y; x2 = b.x + b.w / 2; y2 = b.y + b.h; }
+      var dash = e[3] ? ' stroke-dasharray="5 4"' : '';
+      out += '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"' + dash + '/>';
+      if (e[2]) out += '<text x="' + ((x1 + x2) / 2) + '" y="' + ((y1 + y2) / 2 - 6) + '" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">' + e[2] + '</text>';
+    });
+    nodes.forEach(function (n) {
+      var stroke = n.peach ? '#F5B497' : 'currentColor';
+      out += '<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="10" fill="none" stroke="' + stroke + '" stroke-width="' + (n.peach ? 2.5 : 1.5) + '"/>';
+      out += '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + (n.sub ? 22 : n.h / 2 + 5)) + '" font-size="14" font-weight="500" text-anchor="middle" fill="currentColor">' + n.title + '</text>';
+      if (n.sub) out += '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + 40) + '" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">' + n.sub + '</text>';
+    });
+    return out + '</svg><figcaption>' + caption + '</figcaption></figure>';
+  }
+
+  var figures = {
+    soc: diagram(640, 250, [
+      { id: 'net', x: 10, y: 90, w: 100, h: 60, title: 'Internet', sub: 'inbound blocked' },
+      { id: 'pf', x: 150, y: 80, w: 170, h: 80, title: 'pfSense firewall', sub: 'Snort + Suricata, Squid, OpenVPN', peach: true },
+      { id: 'u', x: 400, y: 10, w: 220, h: 56, title: 'VLAN 10, users', sub: 'Windows 10 client, Kali Linux for tests' },
+      { id: 'dc', x: 400, y: 96, w: 220, h: 56, title: 'VLAN 20, servers', sub: 'Windows Server 2016 DC, netsec.local' },
+      { id: 'elk', x: 400, y: 182, w: 220, h: 56, title: 'ELK Stack on Ubuntu', sub: 'syslog + Winlogbeat, Kibana alerts' }
+    ], [['net', 'pf'], ['pf', 'u'], ['pf', 'dc'], ['pf', 'elk', 'syslog', true], ['dc', 'elk', 'Winlogbeat', true]], 'Topology of the SOC lab'),
+    incident: diagram(640, 170, [
+      { id: 'a', x: 4, y: 20, w: 120, h: 60, title: 'Collect', sub: '1.1M Wazuh alerts' },
+      { id: 'b', x: 132, y: 20, w: 120, h: 60, title: 'Triage', sub: '16,000 web attacks' },
+      { id: 'c', x: 260, y: 20, w: 120, h: 60, title: 'Reconstruct', sub: 'Nmap to Shellshock' },
+      { id: 'd', x: 388, y: 20, w: 120, h: 60, title: 'Map', sub: 'MITRE ATT&amp;CK' },
+      { id: 'e', x: 516, y: 20, w: 120, h: 60, title: 'Respond', sub: 'hardening scripts', peach: true },
+      { id: 'f', x: 70, y: 105, w: 500, h: 50, title: 'Findings: 16 Shellshock exploits, exposed RDP, mail on an odd port' }
+    ], [['a', 'b'], ['b', 'c'], ['c', 'd'], ['d', 'e'], ['c', 'f']], 'How the investigation ran'),
+    lab: diagram(640, 150, [
+      { id: 'a', x: 6, y: 20, w: 140, h: 60, title: 'Lab spec', sub: 'routing, VLAN, NAT, ACL' },
+      { id: 'b', x: 176, y: 20, w: 140, h: 60, title: 'LLM writes configs', sub: 'per device', peach: true },
+      { id: 'c', x: 346, y: 20, w: 140, h: 60, title: 'Apply', sub: 'Cisco Packet Tracer' },
+      { id: 'd', x: 516, y: 20, w: 120, h: 60, title: 'Verify', sub: 'pings, routes, ACL tests' },
+      { id: 'e', x: 176, y: 100, w: 310, h: 40, title: 'Fail: feed the result back and regenerate' }
+    ], [['a', 'b'], ['b', 'c'], ['c', 'd'], ['d', 'e', '', true], ['e', 'b', '', true]], 'The validation loop'),
+    phone: diagram(640, 150, [
+      { id: 'p', x: 6, y: 30, w: 170, h: 70, title: 'Parent app', sub: 'rules, reports, alerts' },
+      { id: 'f', x: 230, y: 20, w: 180, h: 90, title: 'Firebase', sub: 'Auth, Firestore rules, sync', peach: true },
+      { id: 'c', x: 464, y: 30, w: 170, h: 70, title: 'Child app', sub: 'screen-time tracking' }
+    ], [['p', 'f', 'read + write'], ['c', 'f', 'write only']], 'Two apps, one backend, strict permissions'),
+    agent: diagram(640, 170, [
+      { id: 'a', x: 6, y: 20, w: 150, h: 60, title: 'Policy template', sub: 'phases, watering, harvest' },
+      { id: 'b', x: 186, y: 20, w: 130, h: 60, title: 'Optuna search', sub: 'parameter trials' },
+      { id: 'c', x: 346, y: 20, w: 140, h: 60, title: 'Self-play league', sub: 'head-to-head games' },
+      { id: 'd', x: 516, y: 20, w: 120, h: 60, title: 'Promotion gate', sub: 'beat the champion', peach: true },
+      { id: 'e', x: 186, y: 105, w: 300, h: 44, title: 'Champion exported as main.py + checkpoint' }
+    ], [['a', 'b'], ['b', 'c'], ['c', 'd'], ['d', 'e']], 'How a new agent earns deployment')
   };
 
   var ventures = [
@@ -349,6 +414,7 @@
 
   var deck = document.getElementById('deck');
   var detail = document.getElementById('work-detail');
+  var figureBox = document.getElementById('work-figure');
   var dots = document.getElementById('deck-dots');
   var countEl = document.getElementById('deck-count');
   var shades = ['', 'var(--card-2)', 'var(--card-3)', 'var(--card-4)'];
@@ -405,9 +471,15 @@
     detail.appendChild(el('p', 'intro', p.body));
     detail.appendChild(bulletList(p.points));
     detail.appendChild(el('p', 'tools', 'Tools: ' + p.tools));
+    if (p.link) {
+      var a = el('a', 'btn', 'View the code on GitHub');
+      a.href = p.link; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      detail.appendChild(a);
+    }
     detail.classList.remove('swap');
     void detail.offsetWidth;
     detail.classList.add('swap');
+    figureBox.innerHTML = (p.fig && figures[p.fig]) ? figures[p.fig] : '';
   }
 
   function next() {
@@ -580,33 +652,41 @@
   window.addEventListener('scroll', onTimelineScroll, { passive: true });
   setYear(groups[0]);
 
-  /* ---------- Skills: chips ---------- */
+  /* ---------- Skills: chips that expand ---------- */
 
   var sg = document.getElementById('skill-groups');
-  skills.forEach(function (group) {
+  skills.forEach(function (group, gi) {
     var box = el('div', 'skill-group');
     box.appendChild(el('h2', null, group.group));
     var ul = el('ul', 'chips');
+    var panel = el('p', 'skill-detail');
+    panel.id = 'skill-detail-' + gi;
+    panel.hidden = true;
+    var chips = [];
     group.items.forEach(function (it) {
       var li = el('li');
       var chip = el('button', 'chip', it[0]);
       chip.type = 'button';
-      var tip = el('span', 'chip-tip', it[1]);
-      tip.setAttribute('role', 'tooltip');
-      chip.appendChild(tip);
+      chip.setAttribute('aria-expanded', 'false');
+      chip.setAttribute('aria-controls', panel.id);
       chip.addEventListener('click', function () {
-        var open = chip.classList.contains('is-open');
-        sg.querySelectorAll('.chip.is-open').forEach(function (c) { c.classList.remove('is-open'); });
-        if (!open) chip.classList.add('is-open');
+        var open = chip.getAttribute('aria-expanded') === 'true';
+        chips.forEach(function (c) { c.setAttribute('aria-expanded', 'false'); });
+        if (open) { panel.hidden = true; return; }
+        chip.setAttribute('aria-expanded', 'true');
+        panel.innerHTML = '';
+        var strong = el('strong', null, it[0] + '. ');
+        panel.appendChild(strong);
+        panel.appendChild(document.createTextNode(it[1]));
+        panel.hidden = false;
       });
+      chips.push(chip);
       li.appendChild(chip);
       ul.appendChild(li);
     });
     box.appendChild(ul);
+    box.appendChild(panel);
     sg.appendChild(box);
-  });
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('.chip')) sg.querySelectorAll('.chip.is-open').forEach(function (c) { c.classList.remove('is-open'); });
   });
 
   /* ---------- Terminal ---------- */

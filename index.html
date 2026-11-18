@@ -28,6 +28,7 @@
 <button class="tab" data-tab="work">Work</button>
 <button class="tab" data-tab="ventures">Ventures</button>
 <button class="tab" data-tab="experience">Experience</button>
+<button class="tab" data-tab="education">Education</button>
 <button class="tab" data-tab="skills">Skills</button>
 </nav>
 </div>
@@ -56,28 +57,6 @@
 <section class="page is-active" data-page="about">
 <h1 data-reveal>About</h1>
 <p class="lead">I build <span class="rotator" id="rotator"><span class="rot-word">secure systems</span></span>. <span class="em">Security is how I think about every system I touch.</span></p>
-<p class="body">I hold an MS in Information Technology (Cybersecurity) from Carnegie Mellon University Africa. I studied there as a Mastercard Foundation Scholar and graduated in May 2026. Before that, I spent years in Goma, DRC, running IT for businesses and co-founding ventures in training, security services and vehicle repair. In 2024 my team placed third at the ALU Health Hackathon.</p>
-<p class="now"><span class="now-label">Now</span> Freelance mobile app developer in Kigali. Open to IT, cybersecurity and development-sector roles.</p>
-<div class="cta-row">
-<a class="btn btn-dark" href="assets/Nick_Azaria_CV.pdf" download="Nick_Azaria_CV.pdf"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 20h16"/></svg>Download CV</a>
-<a class="btn" href="mailto:azaria.nick@outlook.fr">Email me</a>
-</div>
-<ul class="numbers" id="numbers" aria-label="By the numbers">
-<li><span class="num" data-count="4">0</span><span class="num-label">ventures co-founded</span></li>
-<li><span class="num" data-count="140">0</span><span class="num-label">students recruited into Ujuzi</span></li>
-<li><span class="num" data-count="52">0</span><span class="num-label">students taught networking</span></li>
-<li><span class="num" data-count="70" data-suffix="+">0</span><span class="num-label">heavy vehicles tracked</span></li>
-<li><span class="num" data-count="21" data-prefix="$" data-suffix="k">0</span><span class="num-label">raised for Zero Panne</span></li>
-<li><span class="num" data-count="3">0</span><span class="num-label">teaching roles</span></li>
-</ul>
-<div class="languages">
-<h2>Languages</h2>
-<ul class="lang-list">
-<li><span class="lang">French</span><span class="level">Native</span></li>
-<li><span class="lang">Swahili</span><span class="level">Native</span></li>
-<li><span class="lang">English</span><span class="level">Fluent</span></li>
-</ul>
-</div>
 <div class="pillars">
 <div class="pillar">
 <div class="pillar-head"><span class="dot-icon"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span><h2>Security</h2></div>
@@ -96,6 +75,28 @@
 <p>Co-founder of four ventures in Goma, from security services to vehicle repair.</p>
 </div>
 </div>
+<p class="body">I hold an MS in Information Technology (Cybersecurity) from Carnegie Mellon University Africa. I studied there as a Mastercard Foundation Scholar and graduated in May 2026. Before that, I spent years in Goma, DRC, running IT for businesses and co-founding ventures in training, security services and vehicle repair. In 2024 my team placed third at the ALU Health Hackathon.</p>
+<p class="now"><span class="now-label">Now</span> Freelance mobile app developer in Kigali. Open to IT, cybersecurity and development-sector roles.</p>
+<div class="cta-row">
+<a class="btn btn-dark" href="assets/Nick_Azaria_CV.pdf" download="Nick_Azaria_CV.pdf"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 20h16"/></svg>Download CV</a>
+<a class="btn" href="mailto:azaria.nick@outlook.fr">Email me</a>
+</div>
+<ul class="numbers" id="numbers" aria-label="By the numbers">
+<li><span class="num" data-count="4">0</span><span class="num-label">ventures co-founded</span></li>
+<li><span class="num" data-count="140">0</span><span class="num-label">students recruited into Ujuzi</span></li>
+<li><span class="num" data-count="52">0</span><span class="num-label">students taught networking</span></li>
+<li><span class="num" data-count="10">0</span><span class="num-label">projects built</span></li>
+<li><span class="num" data-count="21" data-prefix="$" data-suffix="k">0</span><span class="num-label">raised for Zero Panne</span></li>
+<li><span class="num" data-count="3">0</span><span class="num-label">teaching roles</span></li>
+</ul>
+<div class="languages">
+<h2>Languages</h2>
+<ul class="lang-list">
+<li><span class="lang">French</span><span class="level">Native</span></li>
+<li><span class="lang">Swahili</span><span class="level">Native</span></li>
+<li><span class="lang">English</span><span class="level">Fluent</span></li>
+</ul>
+</div>
 </section>
 
 <section class="page" data-page="work" hidden>
@@ -113,6 +114,7 @@
 </div>
 <div class="work-detail" id="work-detail" aria-live="polite"></div>
 </div>
+<div class="work-figure" id="work-figure"></div>
 </section>
 
 <section class="page" data-page="ventures" hidden>
@@ -131,24 +133,42 @@
 </div>
 </section>
 
+<section class="page" data-page="education" hidden>
+<h1 data-reveal>Education</h1>
+<div class="edu-grid">
+<article class="edu-card">
+<p class="kicker">2024 to 2026</p>
+<h2>MS in Information Technology, Cybersecurity</h2>
+<p class="edu-org">Carnegie Mellon University Africa, Kigali, Rwanda</p>
+<ul class="bullets">
+<li>Mastercard Foundation Scholar. Graduated May 2026.</li>
+<li>Coursework included network security, cybersecurity operations, cloud computing and information systems audit.</li>
+<li>Teaching Assistant for Cloud Computing and Information Systems Audit; Research Assistant on a networking textbook.</li>
+</ul>
+</article>
+<article class="edu-card">
+<p class="kicker">2017 to 2021</p>
+<h2>Dual BSc, Software Engineering and Networks and Communication Systems</h2>
+<p class="edu-org">University of Eastern Africa Baraton, Eldoret, Kenya</p>
+<ul class="bullets">
+<li>Software engineering, network administration and information security.</li>
+<li>Graphic designer at the Yearbook Office; network technician intern at Kenya Power.</li>
+</ul>
+</article>
+</div>
+<h2 class="edu-sub">Certifications</h2>
+<ul class="cert-list">
+<li><span class="cert-name">Google Cybersecurity Professional Certificate</span><span class="cert-year">2025</span></li>
+<li><span class="cert-name">AWS Certified Cloud Practitioner</span><span class="cert-year">2024</span></li>
+<li><span class="cert-name">Microsoft Azure Fundamentals (AZ-900)</span><span class="cert-year"></span></li>
+<li><span class="cert-name">TEF Certificate in Business Management</span><span class="cert-year">2023</span></li>
+</ul>
+</section>
+
 <section class="page" data-page="skills" hidden>
 <h1 data-reveal>Skills</h1>
-<p class="lead">Point at a skill to see where I used it.</p>
+<p class="lead">Tap a skill to see where I used it.</p>
 <div class="skill-groups" id="skill-groups"></div>
-<div class="dark-grid">
-<div class="dark-box">
-<h2>Education</h2>
-<p>MS in Information Technology (Cybersecurity)<br><span class="soft">Carnegie Mellon University Africa, 2026. Mastercard Foundation Scholar.</span></p>
-<p>Dual BSc, Software Engineering and Networks and Communication Systems<br><span class="soft">University of Eastern Africa Baraton, Kenya, 2021</span></p>
-</div>
-<div class="dark-box">
-<h2>Certifications</h2>
-<p>Google Cybersecurity Professional Certificate, 2025</p>
-<p>AWS Certified Cloud Practitioner, 2024</p>
-<p>Microsoft Azure Fundamentals (AZ-900)</p>
-<p>TEF Certificate in Business Management, 2023</p>
-</div>
-</div>
 </section>
 
 <footer class="mobile-footer">
