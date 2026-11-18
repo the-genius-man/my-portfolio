@@ -117,6 +117,16 @@
     { year: '2018', when: 'Oct 2018 to Jul 2022', role: 'Co-founder and Programme Manager', org: 'CRES, Goma, DRC', points: ['Co-founded a research centre that became a technology transfer centre, and later spun out Zero Panne and the i-kiota accelerator.', 'Designed and ran Ujuzi, a programming upskilling course: recruited 140 students and guided 30 to completion.', 'Managed an $8,000 budget over two years, supervised curriculum development and coordinated instructors.', 'Deployed and administered a Moodle platform for more than 100 users.'] },
   ];
 
+  var education = [
+    { year: '2026', when: 'Aug 2024 to May 2026', kind: 'Degree', role: 'MS in Information Technology, Cybersecurity', org: 'Carnegie Mellon University Africa, Kigali, Rwanda', points: ['Mastercard Foundation Scholar.', 'Network security, cybersecurity operations, cloud computing and information systems audit.', 'Teaching Assistant for Cloud Computing and Information Systems Audit; Research Assistant on a networking textbook.'] },
+    { year: '2025', when: '2025', kind: 'Certification', role: 'Google Cybersecurity Professional Certificate', org: 'Google, via Coursera', points: ['Security frameworks, network security, Linux and SQL, detection and response, and Python for security tasks.'] },
+    { year: '2024', when: '2024', kind: 'Certification', role: 'AWS Certified Cloud Practitioner', org: 'Amazon Web Services', points: ['Cloud concepts, core AWS services, security and compliance, pricing and support.'] },
+    { year: '2023', when: '2023', kind: 'Certification', role: 'TEF Certificate in Business Management', org: 'Tony Elumelu Foundation', points: ['Business planning, financial management and marketing for early-stage ventures.'] },
+    { year: '2023', when: '2023', kind: 'Training', role: 'AWS Cloud Computing programme', org: 'ALX Africa', points: ['Hands-on AWS training that led to the Cloud Practitioner certification.'] },
+    { year: '2021', when: 'Jan 2017 to Aug 2021', kind: 'Degree', role: 'Dual BSc, Software Engineering and Networks and Communication Systems', org: 'University of Eastern Africa Baraton, Eldoret, Kenya', points: ['Software engineering, network administration and information security.', 'Graphic designer at the Yearbook Office; network technician intern at Kenya Power.'] },
+    { year: '2020', when: '2020', kind: 'Certification', role: 'Microsoft Azure Fundamentals (AZ-900)', org: 'Microsoft', points: ['Cloud concepts, Azure services, security, privacy, pricing and support.'] }
+  ];
+
   var skills = [
     { group: 'Security', items: [
       ['SIEM (ELK Stack)', 'The SOC lab and the UPMS investigation at CMU Africa: pfSense and Windows logs into Kibana.'],
@@ -369,7 +379,8 @@
     });
     main.scrollTop = 0;
     if (name === 'about') runCounters();
-    if (name === 'experience') { tlScroll.scrollTop = 0; onTimelineScroll(); }
+    if (name === 'experience') expTimeline.reset();
+    if (name === 'education') eduTimeline.reset();
     if (history.replaceState) history.replaceState(null, '', '#' + name);
   }
   tabs.forEach(function (t) { t.addEventListener('click', function () { showPage(t.dataset.tab); }); });
@@ -606,56 +617,61 @@
     }
   });
 
-  /* ---------- Experience: timeline, pinned years, year rail ---------- */
+  /* ---------- Timelines with pinned years and a year rail ---------- */
 
-  var timeline = document.getElementById('timeline');
-  var tlScroll = document.getElementById('tl-scroll');
-  var rail = document.getElementById('year-rail');
-  var groups = [], groupMap = {};
-
-  jobs.forEach(function (j, i) {
-    var g = groupMap[j.year];
-    if (!g) {
-      g = el('div', 'year-group'); g.dataset.year = j.year;
-      var pin = el('div', 'year-pin'); pin.appendChild(el('span', 'year', j.year));
-      g.appendChild(pin); g.appendChild(el('div', 'tl-items'));
-      timeline.appendChild(g); groupMap[j.year] = g; groups.push(g);
-      var rb = el('button', null, j.year); rb.type = 'button';
-      rb.addEventListener('click', function () {
-        var top = g.offsetTop - timeline.offsetTop;
-        if (getComputedStyle(tlScroll).overflowY === 'visible') window.scrollTo({ top: g.getBoundingClientRect().top + window.scrollY - 90, behavior: reduced ? 'auto' : 'smooth' });
-        else tlScroll.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
-      });
-      rail.appendChild(rb);
-    }
-    var item = el('div', 'tl-item' + (/to now$/.test(j.when) ? ' is-now' : ''));
-    item.appendChild(el('p', 'tl-when', j.when));
-    item.appendChild(el('h2', null, j.role));
-    item.appendChild(el('p', 'tl-org', j.org));
-    item.appendChild(bulletList(j.points));
-    g.querySelector('.tl-items').appendChild(item);
-  });
-
-  function setYear(group) {
-    groups.forEach(function (g, i) {
-      g.classList.toggle('is-current', g === group);
-      var b = rail.children[i];
-      if (g === group) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+  function buildTimeline(items, timelineId, scrollId, railId) {
+    var timeline = document.getElementById(timelineId);
+    var scroller = document.getElementById(scrollId);
+    var rail = document.getElementById(railId);
+    var groups = [], groupMap = {};
+    items.forEach(function (j) {
+      var g = groupMap[j.year];
+      if (!g) {
+        g = el('div', 'year-group'); g.dataset.year = j.year;
+        var pin = el('div', 'year-pin'); pin.appendChild(el('span', 'year', j.year));
+        g.appendChild(pin); g.appendChild(el('div', 'tl-items'));
+        timeline.appendChild(g); groupMap[j.year] = g; groups.push(g);
+        var rb = el('button', null, j.year); rb.type = 'button';
+        rb.addEventListener('click', function () {
+          var top = g.offsetTop - timeline.offsetTop;
+          if (getComputedStyle(scroller).overflowY === 'visible') window.scrollTo({ top: g.getBoundingClientRect().top + window.scrollY - 90, behavior: reduced ? 'auto' : 'smooth' });
+          else scroller.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+        });
+        rail.appendChild(rb);
+      }
+      var item = el('div', 'tl-item' + (/to now$/.test(j.when) ? ' is-now' : ''));
+      item.appendChild(el('p', 'tl-when', j.kind ? j.when + ' \u00b7 ' + j.kind : j.when));
+      item.appendChild(el('h2', null, j.role));
+      item.appendChild(el('p', 'tl-org', j.org));
+      item.appendChild(bulletList(j.points));
+      g.querySelector('.tl-items').appendChild(item);
     });
+    function setYear(group) {
+      groups.forEach(function (g, i) {
+        g.classList.toggle('is-current', g === group);
+        var b = rail.children[i];
+        if (g === group) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+      });
+    }
+    function onScroll() {
+      if (!timeline.offsetParent) return;
+      var fixed = getComputedStyle(scroller).overflowY !== 'visible';
+      var top = fixed ? scroller.getBoundingClientRect().top : 0;
+      var active = groups[0];
+      groups.forEach(function (g) { if (g.getBoundingClientRect().top - top <= 12) active = g; });
+      setYear(active);
+      var tlTop = timeline.getBoundingClientRect().top;
+      var reach = (fixed ? top : 0) + (fixed ? scroller.clientHeight : window.innerHeight) * 0.42 - tlTop;
+      timeline.style.setProperty('--tl-progress', Math.max(0, Math.min(timeline.scrollHeight, reach)) + 'px');
+    }
+    scroller.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    setYear(groups[0]);
+    return { reset: function () { scroller.scrollTop = 0; onScroll(); } };
   }
-  function onTimelineScroll() {
-    var fixed = getComputedStyle(tlScroll).overflowY !== 'visible';
-    var top = fixed ? tlScroll.getBoundingClientRect().top : 0;
-    var active = groups[0];
-    groups.forEach(function (g) { if (g.getBoundingClientRect().top - top <= 12) active = g; });
-    setYear(active);
-    var tlTop = timeline.getBoundingClientRect().top;
-    var reach = (fixed ? top : 0) + (fixed ? tlScroll.clientHeight : window.innerHeight) * 0.42 - tlTop;
-    timeline.style.setProperty('--tl-progress', Math.max(0, Math.min(timeline.scrollHeight, reach)) + 'px');
-  }
-  tlScroll.addEventListener('scroll', onTimelineScroll, { passive: true });
-  window.addEventListener('scroll', onTimelineScroll, { passive: true });
-  setYear(groups[0]);
+
+  var expTimeline = buildTimeline(jobs, 'timeline', 'tl-scroll', 'year-rail');
+  var eduTimeline = buildTimeline(education, 'edu-timeline', 'edu-scroll', 'edu-rail');
 
   /* ---------- Skills: chips that expand ---------- */
 
