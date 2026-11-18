@@ -1,18 +1,33 @@
 (function () {
   'use strict';
 
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* ---------- Content ---------- */
 
   var projects = [
-    { period: 'Sep 2026 to now', title: 'AI-checked network labs', body: 'An automated validation workflow for Cisco Packet Tracer. An LLM-driven toolchain writes the device configurations, applies them and checks the result.', points: ['Generates, applies and verifies router and switch configurations without manual checking.', 'Covers routing, VLAN, NAT and ACL configurations, the same topics I teach.', 'Replaces the slow, manual marking of student lab work.'], tools: 'LLMs, Cisco Packet Tracer, Python' },
-    { period: 'Nov to Dec 2024', title: 'A working SOC, built from scratch', body: 'A complete Security Operations Center, built in VirtualBox for the Network Security course at CMU Africa.', points: ['pfSense firewall with Snort IDS/IPS in front of four machines running Kali Linux, Windows and Ubuntu Server.', 'Joined Windows Server 2016 and Active Directory to an ELK Stack and monitored the machines for a month.', 'Designed a multi-VLAN network with secure remote access over OpenVPN.', 'Launched attacks from Kali Linux, then detected and stopped them.'], tools: 'VirtualBox, pfSense, Snort, OpenVPN, Windows Server, Active Directory, ELK Stack' },
-    { period: 'Feb to May 2025', title: 'Attack, detect, remediate', body: 'Led a red team and blue team assessment of a critical web application for the Cybersecurity Operations course.', points: ['Ran vulnerability scans and exploited authentication flaws with Burp Suite, OWASP ZAP and Metasploit.', 'Wrote a remediation plan that ranked more than 30 high-risk vulnerabilities, cutting overall risk by 40% and moving the app toward ISO 27001.', 'Set up SIEM log analysis in the ELK Stack to correlate events and spot attack patterns, cutting incident response time by 35%.'], tools: 'ELK Stack, Wazuh, MISP, Burp Suite, OWASP ZAP, Metasploit, Wireshark' },
-    { period: 'Jul to Aug 2025', title: 'ShieldKids', body: 'A child safety Android app, built during my cybersecurity internship at Shield Tech Hub in Kigali.', points: ['Delivered the MVP in a six-week Agile cycle: one app for parents, one for children.', 'Set up Firestore sync and fine-grained permissions for full screen-time tracking, keeping family data protected.', 'Ran daily code reviews and API integration tests, and kept the project confidential.'], tools: 'Android, Firebase, Firestore' },
-    { period: 'Since 2021', title: 'Usomi', body: 'A school management platform (SaaS) for secondary schools, built by Techy Ahead, the technology arm of Go Ahead RDC.', points: ['Modules for school finances, student transport, grades and administrative reporting.', 'In use by secondary schools in the DRC.', 'Techy Ahead also builds websites for companies and gives IT support to private firms.'], tools: 'SaaS, EdTech' },
-    { period: 'Oct 2021 to Sep 2024', title: 'IT systems for a logistics firm', body: 'Sole IT consultant for Ets Belle Vie in Goma, a company running heavy vehicles and a water distribution service.', points: ['Set up a fleet management system for more than 70 heavy vehicles: flatbeds, tractors and semi-trucks.', 'Built a backup and disaster recovery routine on Google Drive that protects ten years of financial and logistics records.', 'Built the company website in WordPress and PHP. Its monthly posts brought in four new clients in 2023 and helped launch the water service.', 'Supported more than 20 staff on QuickBooks, SAGE, Microsoft Office and Google Workspace.'], tools: 'WordPress, PHP, Google Workspace, QuickBooks, SAGE' },
-    { period: 'Oct 2018 to Jul 2022', title: 'Ujuzi learning platform', body: 'The secure website and e-learning platform behind Ujuzi, the programming course I ran at CRES in Goma.', points: ['Deployed Moodle for more than 100 users.', 'Built custom workflows that automate student registration and track progress.', 'Set up user management that keeps learner data protected as the platform grows.'], tools: 'Moodle, web hosting' },
-    { period: 'Jun to Aug 2026', title: 'A book on modern networking', body: 'Contributing author on a book on modern networking, as a Research Assistant at CMU Africa.', points: ['Wrote the chapter on network security.', 'Drafted the hands-on labs.', 'Produced the diagrams and figures, and formatted the manuscript.'], tools: 'Carnegie Mellon University Africa' }
+    { art: 'lab', period: 'Sep 2026 to now', title: 'AI-checked network labs', body: 'An automated validation workflow for Cisco Packet Tracer. An LLM-driven toolchain writes the device configurations, applies them and checks the result.', points: ['Generates, applies and verifies router and switch configurations without manual checking.', 'Covers routing, VLAN, NAT and ACL configurations, the same topics I teach.', 'Replaces the slow, manual marking of student lab work.'], tools: 'LLMs, Cisco Packet Tracer, Python' },
+    { art: 'incident', period: 'Feb to Mar 2025', title: 'UPMS security incident investigation', body: 'An incident report on a two-week attack campaign against a university web server, written with two teammates for the Cybersecurity Operations course at CMU Africa.', points: ['Worked through 1.1 million Wazuh alerts and Kibana alert rules to reconstruct the attack, from Nmap reconnaissance to Hydra brute force against SSH.', 'Found more than 16,000 web application attacks, including SQL injection, cross-site scripting and 284 Shellshock attempts, 16 of which succeeded.', 'Spotted an exposed remote desktop service and a mail service on a non-standard port that pointed to data exfiltration, and mapped each stage to MITRE ATT&CK.', 'Wrote the response plan and Ubuntu hardening scripts: firewall rules limited to admin addresses, key-only SSH with no root login, and exposed services switched off.'], tools: 'Wazuh, Kibana, MITRE ATT&CK, ufw, OpenSSH, Ubuntu' },
+    { art: 'soc', period: 'Nov to Dec 2024', title: 'A working SOC, built from scratch', body: 'A complete security operations lab, built in VirtualBox with two teammates for the Network Security course at CMU Africa.', points: ['pfSense firewall at the edge with two VLANs, one for users and one for servers: outbound traffic allowed, all inbound traffic blocked, DHCP on each VLAN.', 'Windows Server 2016 domain controller (netsec.local) with baseline group policies: password rules, account lockout, and audit logging of logons, account changes and file access.', 'ELK Stack on Ubuntu collecting pfSense syslog and Windows events through Winlogbeat, with Kibana dashboards and alert rules.', 'Snort and Suricata for intrusion detection and prevention, a Squid transparent proxy for web filtering, and OpenVPN with its own certificate authority for remote access.', 'Tested from Kali Linux: Nmap scans and Hydra brute-force attempts were detected and blocked, and inbound pings and SSH were dropped.'], tools: 'VirtualBox, pfSense, Snort, Suricata, Squid, OpenVPN, Windows Server, Active Directory, ELK Stack, Winlogbeat, Kali Linux' },
+    { art: 'redblue', period: 'Feb to May 2025', title: 'Attack, detect, remediate', body: 'Led a red team and blue team assessment of a critical web application for the Cybersecurity Operations course.', points: ['Ran vulnerability scans and exploited authentication flaws with Burp Suite, OWASP ZAP and Metasploit.', 'Wrote a remediation plan that ranked more than 30 high-risk vulnerabilities, cutting overall risk by 40% and moving the app toward ISO 27001.', 'Set up SIEM log analysis in the ELK Stack to correlate events and spot attack patterns, cutting incident response time by 35%.'], tools: 'ELK Stack, Wazuh, MISP, Burp Suite, OWASP ZAP, Metasploit, Wireshark' },
+    { art: 'phone', period: 'Jul to Aug 2025', title: 'ShieldKids', body: 'A child safety Android app, built during my cybersecurity internship at Shield Tech Hub in Kigali.', points: ['Delivered the MVP in a six-week Agile cycle: one app for parents, one for children.', 'Set up Firestore sync and fine-grained permissions for full screen-time tracking, keeping family data protected.', 'Ran daily code reviews and API integration tests, and kept the project confidential.'], tools: 'Android, Firebase, Firestore' },
+    { art: 'school', period: 'Since 2021', title: 'Usomi', body: 'A school management platform (SaaS) for secondary schools, built by Techy Ahead, the technology arm of Go Ahead RDC.', points: ['Modules for school finances, student transport, grades and administrative reporting.', 'In use by secondary schools in the DRC.', 'Techy Ahead also builds websites for companies and gives IT support to private firms.'], tools: 'SaaS, EdTech' },
+    { art: 'truck', period: 'Oct 2021 to Sep 2024', title: 'IT systems for a logistics firm', body: 'Sole IT consultant for Ets Belle Vie in Goma, a company running heavy vehicles and a water distribution service.', points: ['Set up a fleet management system for more than 70 heavy vehicles: flatbeds, tractors and semi-trucks.', 'Built a backup and disaster recovery routine on Google Drive that protects ten years of financial and logistics records.', 'Built the company website in WordPress and PHP. Its monthly posts brought in four new clients in 2023 and helped launch the water service.', 'Supported more than 20 staff on QuickBooks, SAGE, Microsoft Office and Google Workspace.'], tools: 'WordPress, PHP, Google Workspace, QuickBooks, SAGE' },
+    { art: 'moodle', period: 'Oct 2018 to Jul 2022', title: 'Ujuzi learning platform', body: 'The secure website and e-learning platform behind Ujuzi, the programming course I ran at CRES in Goma.', points: ['Deployed Moodle for more than 100 users.', 'Built custom workflows that automate student registration and track progress.', 'Set up user management that keeps learner data protected as the platform grows.'], tools: 'Moodle, web hosting' },
+    { art: 'book', period: 'Jun to Aug 2026', title: 'A book on modern networking', body: 'Contributing author on a book on modern networking, as a Research Assistant at CMU Africa.', points: ['Wrote the chapter on network security.', 'Drafted the hands-on labs.', 'Produced the diagrams and figures, and formatted the manuscript.'], tools: 'Carnegie Mellon University Africa' }
   ];
+
+  var art = {
+    lab: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="44" width="92" height="32" rx="8"/><circle cx="30" cy="60" r="4"/><circle cx="44" cy="60" r="4"/><path d="M60 60h32"/><path d="M34 44V30M86 44V30M34 30h52"/><path d="M60 30V16"/><path d="M40 92l10 10 22-22"/></svg>',
+    incident: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 14l46 80H14z"/><path d="M60 46v24M60 80v.5"/><path d="M18 108h84"/></svg>',
+    soc: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 12l38 14v30c0 26-16 42-38 52C38 98 22 82 22 56V26z"/><path d="M30 62h14l6-12 8 24 8-18 6 6h18"/></svg>',
+    redblue: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="18"/><path d="M60 8v22M60 90v22M8 60h22M90 60h22"/></svg>',
+    phone: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="34" y="10" width="52" height="100" rx="10"/><path d="M52 20h16"/><path d="M60 40l16 6v12c0 11-7 18-16 22-9-4-16-11-16-22V46z"/><path d="M52 64l5 5 11-11"/></svg>',
+    school: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 52l46-24 46 24-46 24z"/><path d="M34 62v22c0 6 12 12 26 12s26-6 26-12V62"/><path d="M106 52v30"/></svg>',
+    truck: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 36h62v46H12z"/><path d="M74 50h20l14 16v16H74z"/><circle cx="32" cy="88" r="9"/><circle cx="88" cy="88" r="9"/><path d="M12 82h11M41 82h38M97 82h11"/></svg>',
+    moodle: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="26" width="92" height="60" rx="6"/><path d="M44 102h32M60 86v16"/><path d="M34 60l26-12 26 12-26 12z"/><path d="M48 66v10c0 3 6 6 12 6s12-3 12-6V66"/></svg>',
+    book: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 32c-10-8-24-10-42-8v66c18-2 32 0 42 8 10-8 24-10 42-8V24c-18-2-32 0-42 8z"/><path d="M60 32v66"/><path d="M28 44h20M28 58h20M72 44h20M72 58h20"/></svg>'
+  };
 
   var ventures = [
     { init: 'GA', name: 'Go Ahead RDC', when: 'Since 2021', short: 'A group in Goma working in security, technology, agribusiness and transport.', intro: 'Co-Managing Director of a multisectoral firm with units in private security, technology, and agribusiness and transport.', points: ['Runs the guard staffing operation: recruiting and vetting guards, posting them to clients on rotating shifts and covering absences.', 'Built an in-house guard training programme. Competitors then hired trained guards away, which changed how the firm trains, deploys and keeps staff.', 'Owns vendor relationships, buying and planning across the units.'] },
@@ -35,6 +50,51 @@
     { year: '2019', when: 'Jan 2019 to Aug 2021', role: 'Graphic Designer, Yearbook Office', org: 'University of Eastern Africa Baraton, Kenya', points: ['Designed two 200-page yearbooks in Adobe InDesign and negotiated the printing contract, for over 1,500 students.', 'Photographed weekly events and ran the office social media.'] }
   ];
 
+  var skills = [
+    { group: 'Security', items: [
+      ['SIEM (ELK Stack)', 'The SOC lab and the UPMS investigation at CMU Africa: pfSense and Windows logs into Kibana.'],
+      ['Wazuh', 'Hunted through 1.1 million alerts for the UPMS incident report.'],
+      ['Snort and Suricata', 'IDS/IPS in the SOC lab. Caught Nmap scans and Hydra brute force from Kali.'],
+      ['Incident response', 'Wrote the UPMS incident report, with each stage mapped to MITRE ATT&CK.'],
+      ['Vulnerability assessment', 'Burp Suite, OWASP ZAP and Metasploit on a critical web app; ranked 30+ findings.'],
+      ['IS audit', 'Taught it at CMU Africa and wrote five audit simulations.'],
+      ['ISO 27001', 'The remediation plan for the red and blue team project was built around it.'],
+      ['Wireshark', 'Traffic analysis in the red and blue team project.'],
+      ['MISP', 'Threat intelligence sharing in the red and blue team project.']
+    ] },
+    { group: 'Networks', items: [
+      ['Cisco routing and switching', 'Kenya Power internship across four floors; taught to 52 students at AUCA.'],
+      ['Cisco Packet Tracer', 'Teaching labs, and the AI-checked validation workflow.'],
+      ['pfSense', 'The edge firewall of the SOC lab, with VLANs and logging to ELK.'],
+      ['VLANs, NAT and ACLs', 'Two VLANs in the SOC lab; a full module in the AUCA course.'],
+      ['OpenVPN', 'Remote access for the SOC lab, with its own certificate authority.'],
+      ['Active Directory', 'The netsec.local domain with baseline group policies and audit logging.'],
+      ['Windows Server', 'Domain controller for the SOC lab.'],
+      ['Linux', 'Ubuntu servers for ELK and users; the hardening scripts in the UPMS report.'],
+      ['Fibre optic', 'Spliced fibre and supported radio repeater sites at Kenya Power.']
+    ] },
+    { group: 'Cloud and tools', items: [
+      ['AWS', 'Cloud Practitioner certified. Supported student labs at CMU Africa.'],
+      ['Azure', 'AZ-900 certified. Supported student labs at CMU Africa.'],
+      ['Docker', 'Containers for coursework and lab environments.'],
+      ['Firebase', 'Backend of the ShieldKids apps, with Firestore permissions.'],
+      ['Git', 'Every project on github.com/the-genius-man.'],
+      ['Google Workspace', 'Ran it for more than 20 staff at Ets Belle Vie.'],
+      ['Moodle', 'The Ujuzi platform for more than 100 learners.'],
+      ['Backup and disaster recovery', 'Ten years of Belle Vie records protected on Google Drive.']
+    ] },
+    { group: 'Development', items: [
+      ['Python', 'The Packet Tracer validation workflow.'],
+      ['Bash', 'Ubuntu hardening scripts from the UPMS report.'],
+      ['SQL', 'Coursework and the Usomi platform.'],
+      ['Flutter and Dart', 'Freelance mobile apps for clients in Kigali.'],
+      ['Android', 'The ShieldKids parent and child apps.'],
+      ['PHP and WordPress', 'The Ets Belle Vie website.'],
+      ['LLM tooling', 'Drives the Packet Tracer configuration workflow.'],
+      ['Agile delivery', 'The six-week ShieldKids cycle with daily code reviews.']
+    ] }
+  ];
+
   /* ---------- Helpers ---------- */
 
   function el(tag, cls, text) {
@@ -43,21 +103,189 @@
     if (text !== undefined) node.textContent = text;
     return node;
   }
-
   function bulletList(points) {
     var ul = el('ul', 'bullets');
     points.forEach(function (p) { ul.appendChild(el('li', null, p)); });
     return ul;
   }
+  function store(key, value) {
+    try { if (value === undefined) return localStorage.getItem(key); localStorage.setItem(key, value); } catch (e) { return null; }
+  }
+  function inkColor() { return getComputedStyle(document.documentElement).getPropertyValue('--ink').trim(); }
+  function hexToRgb(hex) {
+    var h = hex.replace('#', '');
+    return [parseInt(h.substr(0, 2), 16), parseInt(h.substr(2, 2), 16), parseInt(h.substr(4, 2), 16)];
+  }
 
   var main = document.getElementById('main');
 
-  /* ---------- Tabs and page transitions ---------- */
+  /* ---------- Night mode ---------- */
+
+  var modeBtn = document.getElementById('mode');
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+  function setNight(on, save) {
+    document.documentElement.classList.toggle('night', on);
+    modeBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    modeBtn.setAttribute('aria-label', on ? 'Switch to day mode' : 'Switch to night mode');
+    modeBtn.querySelector('.mode-text').textContent = on ? 'Day' : 'Night';
+    if (themeMeta) themeMeta.setAttribute('content', on ? '#00132E' : '#ffffff');
+    if (save) store('nick-theme', on ? 'night' : 'day');
+    netColor = hexToRgb(inkColor());
+  }
+  var saved = store('nick-theme');
+  var netColor = [0, 19, 46];
+  setNight(saved ? saved === 'night' : window.matchMedia('(prefers-color-scheme: dark)').matches, false);
+  modeBtn.addEventListener('click', function () {
+    setNight(!document.documentElement.classList.contains('night'), true);
+  });
+
+  /* ---------- The living network ---------- */
+
+  var canvas = document.getElementById('net');
+  var ctx = canvas.getContext('2d');
+  var nodes = [], packets = [], W = 0, H = 0, dpr = 1;
+  var mouse = { x: -9999, y: -9999, px: 0, py: 0 };
+  var LINK = 150;
+
+  function sizeNet() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var want = Math.max(28, Math.min(80, Math.round(W * H / 22000)));
+    while (nodes.length < want) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25, r: 1.5 + Math.random() * 2 });
+    nodes.length = want;
+  }
+
+  function newPacket() {
+    var tries = 12;
+    while (tries--) {
+      var a = Math.floor(Math.random() * nodes.length);
+      var b = Math.floor(Math.random() * nodes.length);
+      if (a === b) continue;
+      var dx = nodes[a].x - nodes[b].x, dy = nodes[a].y - nodes[b].y;
+      if (dx * dx + dy * dy < LINK * LINK) return { a: a, b: b, t: 0, speed: 0.004 + Math.random() * 0.006, peach: Math.random() < 0.18 };
+    }
+    return null;
+  }
+
+  function drawNet() {
+    ctx.clearRect(0, 0, W, H);
+    var c = netColor.join(',');
+    var ox = mouse.px, oy = mouse.py;
+    var i, j, n, m, dx, dy, d2;
+    for (i = 0; i < nodes.length; i++) {
+      n = nodes[i];
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < -20) n.x = W + 20; if (n.x > W + 20) n.x = -20;
+      if (n.y < -20) n.y = H + 20; if (n.y > H + 20) n.y = -20;
+      dx = n.x - mouse.x; dy = n.y - mouse.y; d2 = dx * dx + dy * dy;
+      if (d2 < 160 * 160 && d2 > 1) { var f = (1 - Math.sqrt(d2) / 160) * 0.35; n.x += dx / Math.sqrt(d2) * f; n.y += dy / Math.sqrt(d2) * f; }
+    }
+    ctx.lineWidth = 1;
+    for (i = 0; i < nodes.length; i++) {
+      n = nodes[i];
+      for (j = i + 1; j < nodes.length; j++) {
+        m = nodes[j];
+        dx = n.x - m.x; dy = n.y - m.y; d2 = dx * dx + dy * dy;
+        if (d2 < LINK * LINK) {
+          ctx.strokeStyle = 'rgba(' + c + ',' + (0.16 * (1 - Math.sqrt(d2) / LINK)).toFixed(3) + ')';
+          ctx.beginPath(); ctx.moveTo(n.x + ox, n.y + oy); ctx.lineTo(m.x + ox, m.y + oy); ctx.stroke();
+        }
+      }
+    }
+    for (i = 0; i < nodes.length; i++) {
+      n = nodes[i];
+      ctx.fillStyle = 'rgba(' + c + ',0.28)';
+      ctx.beginPath(); ctx.arc(n.x + ox, n.y + oy, n.r, 0, Math.PI * 2); ctx.fill();
+    }
+    while (packets.length < 14) { var p = newPacket(); if (!p) break; packets.push(p); }
+    for (i = packets.length - 1; i >= 0; i--) {
+      var pk = packets[i];
+      pk.t += pk.speed;
+      var A = nodes[pk.a], B = nodes[pk.b];
+      if (pk.t >= 1 || !A || !B) { packets.splice(i, 1); continue; }
+      var x = A.x + (B.x - A.x) * pk.t, y = A.y + (B.y - A.y) * pk.t;
+      ctx.fillStyle = pk.peach ? 'rgba(245,180,151,0.95)' : 'rgba(' + c + ',0.7)';
+      ctx.beginPath(); ctx.arc(x + ox, y + oy, pk.peach ? 3 : 2.2, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
+  var netRunning = false;
+  function loop() { if (!netRunning) return; drawNet(); requestAnimationFrame(loop); }
+  function startNet() { if (reduced || netRunning) return; netRunning = true; requestAnimationFrame(loop); }
+  function stopNet() { netRunning = false; }
+  if (!reduced) {
+    sizeNet();
+    window.addEventListener('resize', sizeNet);
+    window.addEventListener('pointermove', function (e) {
+      mouse.x = e.clientX; mouse.y = e.clientY;
+      mouse.px = (e.clientX - W / 2) * -0.012; mouse.py = (e.clientY - H / 2) * -0.012;
+    });
+    window.addEventListener('pointerleave', function () { mouse.x = -9999; mouse.y = -9999; });
+    document.addEventListener('visibilitychange', function () { document.hidden ? stopNet() : startNet(); });
+    startNet();
+  }
+
+  /* ---------- Shooting stars you can catch ---------- */
+
+  var sky = document.getElementById('sky');
+  var starPath = 'M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z';
+  [{ x: 70, y: 5, dur: 11, delay: 2 }, { x: 95, y: 30, dur: 14, delay: 7 }, { x: 55, y: 18, dur: 17, delay: 12 }].forEach(function (m) {
+    var meteor = el('div', 'meteor');
+    meteor.style.left = m.x + '%';
+    meteor.style.top = m.y + '%';
+    meteor.style.animationDuration = m.dur + 's';
+    meteor.style.animationDelay = m.delay + 's';
+    meteor.addEventListener('click', function (e) {
+      burst(e.clientX, e.clientY);
+      meteor.classList.add('is-hit');
+      setTimeout(function () { meteor.classList.remove('is-hit'); }, m.dur * 1000);
+    });
+    sky.appendChild(meteor);
+  });
+
+  function burst(x, y) {
+    var ink = inkColor();
+    for (var k = 0; k < 16; k++) {
+      var s = el('div', 'spark');
+      var ang = Math.PI * 2 * k / 16 + Math.random() * 0.5;
+      var dist = 60 + Math.random() * 90;
+      s.style.left = x - 5 + 'px';
+      s.style.top = y - 5 + 'px';
+      s.style.setProperty('--dx', Math.round(Math.cos(ang) * dist) + 'px');
+      s.style.setProperty('--dy', Math.round(Math.sin(ang) * dist) + 'px');
+      s.innerHTML = '<svg viewBox="0 0 24 24"><path d="' + starPath + '" fill="' + (k % 3 === 0 ? '#F5B497' : ink) + '"/></svg>';
+      sky.appendChild(s);
+      setTimeout(function (node) { node.remove(); }, 950, s);
+    }
+  }
+
+  /* ---------- Tabs, transitions, heading reveal ---------- */
 
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
   var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var order = tabs.map(function (t) { return t.dataset.tab; });
+  var currentTab = 'about';
+
+  function revealHeading(h) {
+    if (!h || h.dataset.split === 'done' && !h.dataset.text) return;
+    var text = h.dataset.text || h.textContent;
+    h.dataset.text = text;
+    h.innerHTML = '';
+    h.setAttribute('aria-label', text);
+    text.split('').forEach(function (ch, i) {
+      var s = el('span', 'ch', ch);
+      s.setAttribute('aria-hidden', 'true');
+      s.style.animationDelay = (i * 0.045) + 's';
+      h.appendChild(s);
+    });
+  }
 
   function showPage(name) {
+    var from = order.indexOf(currentTab), to = order.indexOf(name);
+    var dir = to >= from ? 'in-left' : 'in-right';
+    currentTab = name;
     tabs.forEach(function (t) {
       if (t.dataset.tab === name) t.setAttribute('aria-current', 'page');
       else t.removeAttribute('aria-current');
@@ -65,87 +293,114 @@
     pages.forEach(function (p) {
       var on = p.dataset.page === name;
       p.hidden = !on;
-      p.classList.remove('is-active');
-      if (on) { void p.offsetWidth; p.classList.add('is-active'); }
+      p.classList.remove('in-left', 'in-right', 'is-active');
+      if (on) {
+        void p.offsetWidth;
+        p.classList.add('is-active', dir);
+        revealHeading(p.querySelector('h1[data-reveal]'));
+      }
     });
     main.scrollTop = 0;
-    if (name === 'experience') { tlScroll.scrollTop = 0; setYear(groups[0]); }
+    if (name === 'about') runCounters();
+    if (name === 'experience') { tlScroll.scrollTop = 0; onTimelineScroll(); }
     if (history.replaceState) history.replaceState(null, '', '#' + name);
   }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { showPage(t.dataset.tab); }); });
 
-  tabs.forEach(function (t) {
-    t.addEventListener('click', function () { showPage(t.dataset.tab); });
-  });
+  /* ---------- Rotating word ---------- */
 
-  /* ---------- Stars travelling across the sky ---------- */
-
-  var sky = document.querySelector('.sky');
-  var starPath = 'M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z';
-  var seed = 7;
-  function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
-  for (var i = 0; i < 28; i++) {
-    var dur = 45 + Math.round(rnd() * 55);
-    var size = 4 + Math.round(rnd() * 10);
-    var color = i % 6 === 0 ? '#F5B497' : (i % 2 ? '#b3b3b3' : '#d0d0d0');
-    var star = el('div', 'star');
-    star.style.top = (rnd() * 95 - 15).toFixed(1) + '%';
-    star.style.animationDuration = dur + 's';
-    star.style.animationDelay = (-rnd() * dur).toFixed(1) + 's';
-    star.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24"><path d="' + starPath + '" fill="' + color + '"/></svg>';
-    var svg = star.firstChild;
-    svg.style.animationDuration = (2.5 + rnd() * 3).toFixed(1) + 's';
-    svg.style.animationDelay = (rnd() * 4).toFixed(1) + 's';
-    sky.appendChild(star);
+  var rotWords = ['secure systems', 'networks', 'mobile apps', 'training programmes', 'businesses'];
+  var rotEl = document.querySelector('#rotator .rot-word');
+  var rotI = 0;
+  if (!reduced) {
+    setInterval(function () {
+      rotEl.classList.remove('in');
+      rotEl.classList.add('out');
+      setTimeout(function () {
+        rotI = (rotI + 1) % rotWords.length;
+        rotEl.textContent = rotWords[rotI];
+        rotEl.classList.remove('out');
+        rotEl.classList.add('in');
+      }, 340);
+    }, 2800);
   }
-  [{ x: 70, y: 5, dur: 11, delay: 2 }, { x: 95, y: 30, dur: 14, delay: 7 }, { x: 55, y: 18, dur: 17, delay: 12 }].forEach(function (m) {
-    var meteor = el('div', 'meteor');
-    meteor.style.left = m.x + '%';
-    meteor.style.top = m.y + '%';
-    meteor.style.animationDuration = m.dur + 's';
-    meteor.style.animationDelay = m.delay + 's';
-    sky.appendChild(meteor);
-  });
+
+  /* ---------- Counters ---------- */
+
+  function runCounters() {
+    var nums = document.querySelectorAll('#numbers .num');
+    nums.forEach(function (n) {
+      var target = parseInt(n.dataset.count, 10);
+      var prefix = n.dataset.prefix || '', suffix = n.dataset.suffix || '';
+      if (reduced) { n.textContent = prefix + target + suffix; return; }
+      var start = null, dur = 1300;
+      function step(ts) {
+        if (!start) start = ts;
+        var k = Math.min(1, (ts - start) / dur);
+        var eased = 1 - Math.pow(1 - k, 3);
+        n.textContent = prefix + Math.round(target * eased) + suffix;
+        if (k < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
 
   /* ---------- Work: stacked cards ---------- */
 
   var deck = document.getElementById('deck');
   var detail = document.getElementById('work-detail');
-  var shades = ['#000000', '#2b2b2b', '#4a4a4a', '#666666'];
-  var current = 0;
-  var sending = false;
+  var dots = document.getElementById('deck-dots');
+  var countEl = document.getElementById('deck-count');
+  var shades = ['', 'var(--card-2)', 'var(--card-3)', 'var(--card-4)'];
+  var current = 0, sending = false, drag = null;
 
-  var cards = projects.map(function (p) {
+  var cards = projects.map(function (p, i) {
     var card = el('button', 'card');
     card.type = 'button';
+    var a = el('span', 'card-art'); a.innerHTML = art[p.art]; a.setAttribute('aria-hidden', 'true');
+    card.appendChild(a);
     card.appendChild(el('span', 'card-period', p.period));
     card.appendChild(el('span', 'card-title', p.title));
-    card.appendChild(el('span', 'card-hint', 'Tap the card for the next project'));
-    card.addEventListener('click', function () { if (card.classList.contains('is-front')) next(); });
+    card.appendChild(el('span', 'card-hint', 'Tap or drag for the next project'));
+    card.addEventListener('click', function () { if (card.classList.contains('is-front') && !(drag && drag.moved)) next(); });
     deck.appendChild(card);
+    var dot = el('button', 'deck-dot');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', 'Show project ' + (i + 1) + ': ' + p.title);
+    dot.addEventListener('click', function () { if (sending) return; current = i; layoutDeck(); });
+    dots.appendChild(dot);
     return card;
   });
+
+  function baseTransform(depth) { return 'translateY(' + depth * 16 + 'px) scale(' + (1 - depth * 0.05) + ')'; }
 
   function layoutDeck() {
     var n = cards.length;
     cards.forEach(function (card, i) {
       var d = (i - current + n) % n;
       var depth = Math.min(d, 3);
-      card.style.transform = 'translateY(' + depth * 16 + 'px) scale(' + (1 - depth * 0.05) + ')';
+      card.dataset.base = baseTransform(depth);
+      card.style.transform = card.dataset.base;
       card.style.opacity = d < 4 ? '1' : '0';
       card.style.zIndex = String(20 - d);
-      card.style.background = shades[depth];
+      card.style.background = d === 0 ? '' : shades[depth];
       card.classList.toggle('is-front', d === 0);
       card.querySelector('.card-hint').hidden = d !== 0;
       card.tabIndex = d === 0 ? 0 : -1;
       card.setAttribute('aria-hidden', d === 0 ? 'false' : 'true');
       card.setAttribute('aria-label', projects[i].title + '. Show the next project');
     });
+    Array.prototype.forEach.call(dots.children, function (dot, i) {
+      if (i === current) dot.setAttribute('aria-current', 'true'); else dot.removeAttribute('aria-current');
+    });
+    countEl.textContent = (current + 1) + ' / ' + n;
     renderDetail();
   }
 
   function renderDetail() {
     var p = projects[current];
     detail.innerHTML = '';
+    detail.appendChild(el('p', 'kicker', p.period));
     detail.appendChild(el('h2', null, p.title));
     detail.appendChild(el('p', 'intro', p.body));
     detail.appendChild(bulletList(p.points));
@@ -158,7 +413,6 @@
   function next() {
     if (sending) return;
     var front = cards[current];
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) { current = (current + 1) % cards.length; layoutDeck(); return; }
     sending = true;
     front.classList.add('is-sending');
@@ -169,15 +423,57 @@
       layoutDeck();
     }, 450);
   }
-
   function prev() {
     if (sending) return;
     current = (current - 1 + cards.length) % cards.length;
     layoutDeck();
   }
-
   document.getElementById('next').addEventListener('click', next);
   document.getElementById('prev').addEventListener('click', prev);
+
+  deck.addEventListener('pointerdown', function (e) {
+    var front = cards[current];
+    if (e.target.closest('.card') !== front || sending) return;
+    drag = { x: e.clientX, dx: 0, moved: false, card: front };
+    front.setPointerCapture(e.pointerId);
+    front.classList.add('is-dragging');
+  });
+  deck.addEventListener('pointermove', function (e) {
+    var front = cards[current];
+    if (drag) {
+      drag.dx = e.clientX - drag.x;
+      if (Math.abs(drag.dx) > 5) drag.moved = true;
+      drag.card.style.transform = 'translateX(' + drag.dx + 'px) rotate(' + (drag.dx / 18) + 'deg)';
+      return;
+    }
+    if (reduced || !front.classList.contains('is-front')) return;
+    var r = deck.getBoundingClientRect();
+    var rx = ((e.clientY - r.top) / r.height - 0.5) * -8;
+    var ry = ((e.clientX - r.left) / r.width - 0.5) * 10;
+    front.style.transform = front.dataset.base + ' rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+  });
+  function endDrag() {
+    if (!drag) return;
+    var d = drag; drag = null;
+    d.card.classList.remove('is-dragging');
+    if (d.dx > 70) { d.card.style.transform = d.card.dataset.base; next(); }
+    else if (d.dx < -70) { d.card.style.transform = 'translateX(-130%) rotate(-12deg)'; d.card.style.opacity = '0'; setTimeout(function () { d.card.style.opacity = ''; prev(); }, 300); }
+    else d.card.style.transform = d.card.dataset.base;
+    setTimeout(function () { d.moved = false; }, 0);
+  }
+  deck.addEventListener('pointerup', endDrag);
+  deck.addEventListener('pointercancel', endDrag);
+  deck.addEventListener('pointerleave', function () {
+    if (drag) return;
+    var front = cards[current];
+    front.style.transform = front.dataset.base;
+  });
+  document.addEventListener('keydown', function (e) {
+    if (currentTab !== 'work' || openIndex !== null || termOpen) return;
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
   layoutDeck();
 
   /* ---------- Ventures: cards and popup ---------- */
@@ -185,21 +481,18 @@
   var grid = document.getElementById('venture-grid');
   var overlay = document.getElementById('overlay');
   var dialog = overlay.querySelector('.dialog');
-  var openIndex = null;
-  var lastFocus = null;
+  var openIndex = null, lastFocus = null;
 
   ventures.forEach(function (v, i) {
     var card = el('button', 'venture');
     card.type = 'button';
     card.setAttribute('aria-label', v.name + '. ' + v.short + ' Open details.');
     var head = el('span', 'v-head');
-    var badge = el('span', 'badge', v.init);
-    badge.setAttribute('aria-hidden', 'true');
+    var badge = el('span', 'badge', v.init); badge.setAttribute('aria-hidden', 'true');
     var names = el('span');
     names.appendChild(el('span', 'kicker', v.when));
     names.appendChild(el('span', 'v-name', v.name));
-    head.appendChild(badge);
-    head.appendChild(names);
+    head.appendChild(badge); head.appendChild(names);
     card.appendChild(head);
     card.appendChild(el('span', 'v-short', v.short));
     card.appendChild(el('span', 'v-more', 'Read more'));
@@ -208,8 +501,7 @@
   });
 
   function fillDialog(i) {
-    var v = ventures[i];
-    var nextV = ventures[(i + 1) % ventures.length];
+    var v = ventures[i], nextV = ventures[(i + 1) % ventures.length];
     document.getElementById('dlg-init').textContent = v.init;
     document.getElementById('dlg-when').textContent = v.when;
     document.getElementById('dlg-name').textContent = v.name;
@@ -222,59 +514,42 @@
     nextBtn.appendChild(document.createTextNode('Next: ' + nextV.name + ' '));
     nextBtn.insertAdjacentHTML('beforeend', '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>');
   }
-
-  function openVenture(i) {
-    lastFocus = document.activeElement;
-    openIndex = i;
-    fillDialog(i);
-    overlay.hidden = false;
-    dialog.focus();
-  }
-
-  function closeVenture() {
-    overlay.hidden = true;
-    openIndex = null;
-    if (lastFocus) lastFocus.focus();
-  }
-
-  document.getElementById('dlg-next').addEventListener('click', function () {
-    openIndex = (openIndex + 1) % ventures.length;
-    fillDialog(openIndex);
-    dialog.scrollTop = 0;
-  });
+  function openVenture(i) { lastFocus = document.activeElement; openIndex = i; fillDialog(i); overlay.hidden = false; dialog.focus(); }
+  function closeVenture() { overlay.hidden = true; openIndex = null; if (lastFocus) lastFocus.focus(); }
+  document.getElementById('dlg-next').addEventListener('click', function () { openIndex = (openIndex + 1) % ventures.length; fillDialog(openIndex); dialog.scrollTop = 0; });
   document.getElementById('dlg-close').addEventListener('click', closeVenture);
   overlay.addEventListener('click', function (e) { if (e.target === overlay) closeVenture(); });
   document.addEventListener('keydown', function (e) {
     if (openIndex === null) return;
     if (e.key === 'Escape') closeVenture();
     if (e.key === 'Tab') {
-      var focusables = dialog.querySelectorAll('button');
-      var first = focusables[0];
-      var last = focusables[focusables.length - 1];
+      var f = dialog.querySelectorAll('button'), first = f[0], last = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
   });
 
-  /* ---------- Experience: timeline with pinned years ---------- */
+  /* ---------- Experience: timeline, pinned years, year rail ---------- */
 
   var timeline = document.getElementById('timeline');
   var tlScroll = document.getElementById('tl-scroll');
-  var groups = [];
-  var groupMap = {};
+  var rail = document.getElementById('year-rail');
+  var groups = [], groupMap = {};
 
   jobs.forEach(function (j, i) {
     var g = groupMap[j.year];
     if (!g) {
-      g = el('div', 'year-group');
-      g.dataset.year = j.year;
-      var pin = el('div', 'year-pin');
-      pin.appendChild(el('span', 'year', j.year));
-      g.appendChild(pin);
-      g.appendChild(el('div', 'tl-items'));
-      timeline.appendChild(g);
-      groupMap[j.year] = g;
-      groups.push(g);
+      g = el('div', 'year-group'); g.dataset.year = j.year;
+      var pin = el('div', 'year-pin'); pin.appendChild(el('span', 'year', j.year));
+      g.appendChild(pin); g.appendChild(el('div', 'tl-items'));
+      timeline.appendChild(g); groupMap[j.year] = g; groups.push(g);
+      var rb = el('button', null, j.year); rb.type = 'button';
+      rb.addEventListener('click', function () {
+        var top = g.offsetTop - timeline.offsetTop;
+        if (getComputedStyle(tlScroll).overflowY === 'visible') window.scrollTo({ top: g.getBoundingClientRect().top + window.scrollY - 90, behavior: reduced ? 'auto' : 'smooth' });
+        else tlScroll.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+      });
+      rail.appendChild(rb);
     }
     var item = el('div', 'tl-item' + (i === 0 ? ' is-now' : ''));
     item.appendChild(el('p', 'tl-when', j.when));
@@ -285,25 +560,128 @@
   });
 
   function setYear(group) {
-    groups.forEach(function (g) { g.classList.toggle('is-current', g === group); });
-  }
-
-  function onTimelineScroll() {
-    var scroller = getComputedStyle(tlScroll).overflowY === 'visible' ? null : tlScroll;
-    var top = scroller ? scroller.getBoundingClientRect().top : 0;
-    var active = groups[0];
-    groups.forEach(function (g) {
-      if (g.getBoundingClientRect().top - top <= 12) active = g;
+    groups.forEach(function (g, i) {
+      g.classList.toggle('is-current', g === group);
+      var b = rail.children[i];
+      if (g === group) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
     });
-    setYear(active);
   }
-
+  function onTimelineScroll() {
+    var fixed = getComputedStyle(tlScroll).overflowY !== 'visible';
+    var top = fixed ? tlScroll.getBoundingClientRect().top : 0;
+    var active = groups[0];
+    groups.forEach(function (g) { if (g.getBoundingClientRect().top - top <= 12) active = g; });
+    setYear(active);
+    var tlTop = timeline.getBoundingClientRect().top;
+    var reach = (fixed ? top : 0) + (fixed ? tlScroll.clientHeight : window.innerHeight) * 0.42 - tlTop;
+    timeline.style.setProperty('--tl-progress', Math.max(0, Math.min(timeline.scrollHeight, reach)) + 'px');
+  }
   tlScroll.addEventListener('scroll', onTimelineScroll, { passive: true });
   window.addEventListener('scroll', onTimelineScroll, { passive: true });
   setYear(groups[0]);
 
-  /* ---------- Start on the page named in the address, if any ---------- */
+  /* ---------- Skills: chips ---------- */
+
+  var sg = document.getElementById('skill-groups');
+  skills.forEach(function (group) {
+    var box = el('div', 'skill-group');
+    box.appendChild(el('h2', null, group.group));
+    var ul = el('ul', 'chips');
+    group.items.forEach(function (it) {
+      var li = el('li');
+      var chip = el('button', 'chip', it[0]);
+      chip.type = 'button';
+      var tip = el('span', 'chip-tip', it[1]);
+      tip.setAttribute('role', 'tooltip');
+      chip.appendChild(tip);
+      chip.addEventListener('click', function () {
+        var open = chip.classList.contains('is-open');
+        sg.querySelectorAll('.chip.is-open').forEach(function (c) { c.classList.remove('is-open'); });
+        if (!open) chip.classList.add('is-open');
+      });
+      li.appendChild(chip);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    sg.appendChild(box);
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.chip')) sg.querySelectorAll('.chip.is-open').forEach(function (c) { c.classList.remove('is-open'); });
+  });
+
+  /* ---------- Terminal ---------- */
+
+  var term = document.getElementById('term');
+  var termOut = document.getElementById('term-out');
+  var termIn = document.getElementById('term-in');
+  var termOpen = false;
+  var termHint = document.getElementById('term-hint');
+
+  function tprint(text, peach) {
+    var line = document.createElement('span');
+    line.textContent = text + '\n';
+    if (peach) line.className = 'peach';
+    termOut.appendChild(line);
+    termOut.scrollTop = termOut.scrollHeight;
+  }
+  function openTerm() {
+    termOpen = true; term.hidden = false; termHint.hidden = true;
+    if (!termOut.textContent) { tprint('Welcome. Type help to see what I can do.', true); }
+    termIn.focus();
+  }
+  function closeTerm() { termOpen = false; term.hidden = true; termHint.hidden = false; }
+  document.getElementById('term-close').addEventListener('click', closeTerm);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === '`' && e.target !== termIn && !(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) { e.preventDefault(); termOpen ? closeTerm() : openTerm(); }
+    if (e.key === 'Escape' && termOpen) closeTerm();
+  });
+
+  var commands = {
+    help: function () { return ['Commands:', '  about      who I am', '  work       list the projects', '  ventures   the four companies', '  skills     the skill groups', '  cv         download the CV', '  contact    how to reach me', '  theme      switch day and night', '  go <page>  open a section (about, work, ventures, experience, skills)', '  ping       check the line', '  whoami     you, as far as I can tell', '  clear      wipe the screen', '  exit       close the terminal'].join('\n'); },
+    about: function () { return 'Nick Azaria. IT and cybersecurity professional in Kigali. MS in IT (Cybersecurity), CMU Africa, 2026. Builds secure systems, teaches networking and runs businesses.'; },
+    work: function () { return projects.map(function (p, i) { return (i + 1) + '. ' + p.title + '  (' + p.period + ')'; }).join('\n'); },
+    ventures: function () { return ventures.map(function (v) { return v.name + ': ' + v.short; }).join('\n'); },
+    skills: function () { return skills.map(function (g) { return g.group + ': ' + g.items.map(function (i) { return i[0]; }).join(', '); }).join('\n'); },
+    cv: function () { var a = document.createElement('a'); a.href = 'assets/Nick_Azaria_CV.pdf'; a.download = 'Nick_Azaria_CV.pdf'; document.body.appendChild(a); a.click(); a.remove(); return 'Downloading Nick_Azaria_CV.pdf'; },
+    contact: function () { return 'Email: azaria.nick@outlook.fr\nLinkedIn: linkedin.com/in/nick-azaria\nGitHub: github.com/the-genius-man'; },
+    theme: function () { modeBtn.click(); return 'Switched to ' + (document.documentElement.classList.contains('night') ? 'night' : 'day') + ' mode.'; },
+    go: function (arg) { if (order.indexOf(arg) < 0) return 'Pages: ' + order.join(', '); showPage(arg); return 'Opened ' + arg + '.'; },
+    ping: function () { return 'PING portfolio: 64 bytes, time=' + (1 + Math.random() * 3).toFixed(1) + ' ms. All systems operational.'; },
+    whoami: function () { return 'A visitor with excellent taste in portfolios.'; },
+    date: function () { return new Date().toString(); },
+    sudo: function () { return 'Nice try. Nick holds the keys here.'; },
+    clear: function () { termOut.innerHTML = ''; return ''; },
+    exit: function () { closeTerm(); return ''; }
+  };
+  document.getElementById('term-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var raw = termIn.value.trim(); termIn.value = '';
+    if (!raw) return;
+    tprint('$ ' + raw, true);
+    var parts = raw.split(/\s+/), cmd = parts[0].toLowerCase(), arg = (parts[1] || '').toLowerCase();
+    var fn = commands[cmd];
+    var out = fn ? fn(arg) : 'Unknown command: ' + cmd + '. Type help.';
+    if (out) tprint(out);
+  });
+
+  /* ---------- Status line: last deploy from GitHub ---------- */
+
+  var statusText = document.getElementById('status-text');
+  if (window.fetch) {
+    fetch('https://api.github.com/repos/the-genius-man/my-portfolio/commits?per_page=1', { headers: { Accept: 'application/vnd.github+json' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data || !data[0]) return;
+        var d = new Date(data[0].commit.committer.date);
+        var txt = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        statusText.textContent = 'Online. Updated ' + txt;
+      })
+      .catch(function () {});
+  }
+
+  /* ---------- Start ---------- */
 
   var start = (location.hash || '').replace('#', '');
-  if (start && document.querySelector('[data-page="' + start + '"]')) showPage(start);
+  if (start && order.indexOf(start) >= 0 && start !== 'about') { currentTab = 'about'; showPage(start); }
+  else { revealHeading(document.querySelector('[data-page="about"] h1')); runCounters(); }
 })();
