@@ -31,68 +31,29 @@
     book: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 32c-10-8-24-10-42-8v66c18-2 32 0 42 8 10-8 24-10 42-8V24c-18-2-32 0-42 8z"/><path d="M60 32v66"/><path d="M28 44h20M28 58h20M72 44h20M72 58h20"/></svg>'
   };
 
-  /* Box-and-arrow diagrams for the project details */
-  function diagram(w, h, nodes, edges, caption) {
-    var byId = {};
-    nodes.forEach(function (n) { byId[n.id] = n; });
-    var out = '<figure><svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + caption + '" font-family="Barlow, system-ui, sans-serif">';
-    out += '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>';
-    edges.forEach(function (e) {
-      var a = byId[e[0]], b = byId[e[1]];
-      var x1, y1, x2, y2;
-      if (b.x >= a.x + a.w) { x1 = a.x + a.w; y1 = a.y + a.h / 2; x2 = b.x; y2 = b.y + b.h / 2; }
-      else if (a.x >= b.x + b.w) { x1 = a.x; y1 = a.y + a.h / 2; x2 = b.x + b.w; y2 = b.y + b.h / 2; }
-      else if (b.y >= a.y + a.h) { x1 = a.x + a.w / 2; y1 = a.y + a.h; x2 = b.x + b.w / 2; y2 = b.y; }
-      else { x1 = a.x + a.w / 2; y1 = a.y; x2 = b.x + b.w / 2; y2 = b.y + b.h; }
-      var dash = e[3] ? ' stroke-dasharray="5 4"' : '';
-      out += '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"' + dash + '/>';
-      if (e[2]) out += '<text x="' + ((x1 + x2) / 2) + '" y="' + ((y1 + y2) / 2 - 6) + '" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">' + e[2] + '</text>';
-    });
-    nodes.forEach(function (n) {
-      var stroke = n.peach ? '#F5B497' : 'currentColor';
-      out += '<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="10" fill="none" stroke="' + stroke + '" stroke-width="' + (n.peach ? 2.5 : 1.5) + '"/>';
-      out += '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + (n.sub ? 22 : n.h / 2 + 5)) + '" font-size="14" font-weight="500" text-anchor="middle" fill="currentColor">' + n.title + '</text>';
-      if (n.sub) out += '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + 40) + '" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">' + n.sub + '</text>';
-    });
-    return out + '</svg><figcaption>' + caption + '</figcaption></figure>';
-  }
-
-  var figures = {
-    soc: diagram(640, 250, [
-      { id: 'net', x: 10, y: 90, w: 100, h: 60, title: 'Internet', sub: 'inbound blocked' },
-      { id: 'pf', x: 150, y: 80, w: 170, h: 80, title: 'pfSense firewall', sub: 'Snort + Suricata, Squid, OpenVPN', peach: true },
-      { id: 'u', x: 400, y: 10, w: 220, h: 56, title: 'VLAN 10, users', sub: 'Windows 10 client, Kali Linux for tests' },
-      { id: 'dc', x: 400, y: 96, w: 220, h: 56, title: 'VLAN 20, servers', sub: 'Windows Server 2016 DC, netsec.local' },
-      { id: 'elk', x: 400, y: 182, w: 220, h: 56, title: 'ELK Stack on Ubuntu', sub: 'syslog + Winlogbeat, Kibana alerts' }
-    ], [['net', 'pf'], ['pf', 'u'], ['pf', 'dc'], ['pf', 'elk', 'syslog', true], ['dc', 'elk', 'Winlogbeat', true]], 'Topology of the SOC lab'),
-    incident: diagram(640, 170, [
-      { id: 'a', x: 4, y: 20, w: 120, h: 60, title: 'Collect', sub: '1.1M Wazuh alerts' },
-      { id: 'b', x: 132, y: 20, w: 120, h: 60, title: 'Triage', sub: '16,000 web attacks' },
-      { id: 'c', x: 260, y: 20, w: 120, h: 60, title: 'Reconstruct', sub: 'Nmap to Shellshock' },
-      { id: 'd', x: 388, y: 20, w: 120, h: 60, title: 'Map', sub: 'MITRE ATT&amp;CK' },
-      { id: 'e', x: 516, y: 20, w: 120, h: 60, title: 'Respond', sub: 'hardening scripts', peach: true },
-      { id: 'f', x: 70, y: 105, w: 500, h: 50, title: 'Findings: 16 Shellshock exploits, exposed RDP, mail on an odd port' }
-    ], [['a', 'b'], ['b', 'c'], ['c', 'd'], ['d', 'e'], ['c', 'f']], 'How the investigation ran'),
-    lab: diagram(640, 150, [
-      { id: 'a', x: 6, y: 20, w: 140, h: 60, title: 'Lab spec', sub: 'routing, VLAN, NAT, ACL' },
-      { id: 'b', x: 176, y: 20, w: 140, h: 60, title: 'LLM writes configs', sub: 'per device', peach: true },
-      { id: 'c', x: 346, y: 20, w: 140, h: 60, title: 'Apply', sub: 'Cisco Packet Tracer' },
-      { id: 'd', x: 516, y: 20, w: 120, h: 60, title: 'Verify', sub: 'pings, routes, ACL tests' },
-      { id: 'e', x: 176, y: 100, w: 310, h: 40, title: 'Fail: feed the result back and regenerate' }
-    ], [['a', 'b'], ['b', 'c'], ['c', 'd'], ['d', 'e', '', true], ['e', 'b', '', true]], 'The validation loop'),
-    phone: diagram(640, 150, [
-      { id: 'p', x: 6, y: 30, w: 170, h: 70, title: 'Parent app', sub: 'rules, reports, alerts' },
-      { id: 'f', x: 230, y: 20, w: 180, h: 90, title: 'Firebase', sub: 'Auth, Firestore rules, sync', peach: true },
-      { id: 'c', x: 464, y: 30, w: 170, h: 70, title: 'Child app', sub: 'screen-time tracking' }
-    ], [['p', 'f', 'read + write'], ['c', 'f', 'write only']], 'Two apps, one backend, strict permissions'),
-    agent: diagram(640, 170, [
-      { id: 'a', x: 6, y: 20, w: 150, h: 60, title: 'Policy template', sub: 'phases, watering, harvest' },
-      { id: 'b', x: 186, y: 20, w: 130, h: 60, title: 'Optuna search', sub: 'parameter trials' },
-      { id: 'c', x: 346, y: 20, w: 140, h: 60, title: 'Self-play league', sub: 'head-to-head games' },
-      { id: 'd', x: 516, y: 20, w: 120, h: 60, title: 'Promotion gate', sub: 'beat the champion', peach: true },
-      { id: 'e', x: 186, y: 105, w: 300, h: 44, title: 'Champion exported as main.py + checkpoint' }
-    ], [['a', 'b'], ['b', 'c'], ['c', 'd'], ['d', 'e']], 'How a new agent earns deployment')
+  /* Diagrams, drawn in draw.io: assets/diagrams/*.svg (sources in assets/diagrams/src) */
+  var figureCaptions = {
+    soc: 'Topology of the SOC lab',
+    incident: 'How the investigation ran',
+    lab: 'The validation loop',
+    phone: 'Two apps, one backend, strict permissions',
+    agent: 'How a new agent earns deployment'
   };
+  var figureCache = {};
+  function loadFigure(key, box) {
+    var caption = figureCaptions[key];
+    var path = 'assets/diagrams/' + key + '.svg';
+    box.innerHTML = '<figure><img src="' + path + '" alt="' + caption + '"><figcaption>' + caption + '</figcaption></figure>';
+    if (!window.fetch || location.protocol === 'file:') return;
+    var done = function (svg) {
+      if (box.dataset.key !== key) return;
+      box.innerHTML = '<figure>' + svg + '<figcaption>' + caption + '</figcaption></figure>';
+    };
+    if (figureCache[key]) { done(figureCache[key]); return; }
+    fetch(path).then(function (r) { return r.ok ? r.text() : ''; }).then(function (svg) {
+      if (svg && svg.indexOf('<svg') === 0) { figureCache[key] = svg; done(svg); }
+    }).catch(function () {});
+  }
 
   var ventures = [
     { init: 'GA', name: 'Go Ahead RDC', url: 'https://goahead.africa', when: 'Since 2021', short: 'A group in Goma working in security, technology, agribusiness and transport.', intro: 'Co-Managing Director of a multisectoral firm with units in private security, technology, and agribusiness and transport.', points: ['Runs the guard staffing operation: recruiting and vetting guards, posting them to clients on rotating shifts and covering absences.', 'Built an in-house guard training programme. Competitors then hired trained guards away, which changed how the firm trains, deploys and keeps staff.', 'Owns vendor relationships, buying and planning across the units.'] },
@@ -492,7 +453,8 @@
     detail.classList.remove('swap');
     void detail.offsetWidth;
     detail.classList.add('swap');
-    figureBox.innerHTML = (p.fig && figures[p.fig]) ? figures[p.fig] : '';
+    figureBox.dataset.key = p.fig || '';
+    if (p.fig && figureCaptions[p.fig]) loadFigure(p.fig, figureBox); else figureBox.innerHTML = '';
   }
 
   function next() {

@@ -10,6 +10,7 @@ Live site: https://the-genius-man.github.io/my-portfolio/
 - `styles.css`: the navy and white design, peach accents, night mode, animations and phone layout.
 - `main.js`: content for Work, Ventures, Experience and Skills; the living network background, stacked project cards (drag, tap or arrow keys), venture popups, the timeline with pinned years and a year rail, skill chips with tooltips, the count-up numbers, night mode, the hidden terminal (press the backtick key) and the status line, which reads the last commit date from the GitHub API.
 - `assets/logo.png`: the N Azaria monogram.
+- `assets/diagrams/*.svg`: the project diagrams, exported from draw.io. The editable sources are in `assets/diagrams/src/*.drawio`; open one at app.diagrams.net, change it, and export as SVG over the file of the same name.
 - `assets/Nick_Azaria_CV.pdf`: the downloadable CV linked from the menu. Replace this file to update it.
 
 No build step and no dependencies. Open `index.html` in a browser to run it locally.

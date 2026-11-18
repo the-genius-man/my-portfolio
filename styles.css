@@ -148,8 +148,10 @@ h2 { margin: 0; font-family: var(--display); font-weight: 500; text-transform: u
 .work-detail .bullets { color: var(--ink); gap: 8px; }
 .work-detail .tools { margin: 0; color: var(--muted); }
 .work-figure:empty { display: none; }
-.work-figure figure { margin: 0; padding: 20px 24px; border-radius: 16px; border: 1.5px solid var(--line); display: flex; flex-direction: column; gap: 12px; max-width: 900px; animation: fadeUp 0.45s var(--ease) both; }
-.work-figure figure svg { width: 100%; height: auto; display: block; }
+.work-figure figure { margin: 0; padding: 20px 24px; border-radius: 16px; border: 1.5px solid var(--line); background: #ffffff; display: flex; flex-direction: column; gap: 12px; max-width: 900px; animation: fadeUp 0.45s var(--ease) both; }
+.work-figure figure svg, .work-figure figure img { width: 100%; height: auto; display: block; }
+html.night .work-figure figure { border-color: #F2E7D5; }
+html.night .work-figure figcaption { color: #4A5566; }
 .work-figure figcaption { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 .work-detail .btn { align-self: flex-start; }
 .work-detail.swap > * { animation: fadeUp 0.45s var(--ease) both; }
