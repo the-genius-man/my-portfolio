@@ -95,14 +95,14 @@
   };
 
   var ventures = [
-    { init: 'GA', name: 'Go Ahead RDC', when: 'Since 2021', short: 'A group in Goma working in security, technology, agribusiness and transport.', intro: 'Co-Managing Director of a multisectoral firm with units in private security, technology, and agribusiness and transport.', points: ['Runs the guard staffing operation: recruiting and vetting guards, posting them to clients on rotating shifts and covering absences.', 'Built an in-house guard training programme. Competitors then hired trained guards away, which changed how the firm trains, deploys and keeps staff.', 'Owns vendor relationships, buying and planning across the units.'] },
+    { init: 'GA', name: 'Go Ahead RDC', url: 'https://goahead.africa', when: 'Since 2021', short: 'A group in Goma working in security, technology, agribusiness and transport.', intro: 'Co-Managing Director of a multisectoral firm with units in private security, technology, and agribusiness and transport.', points: ['Runs the guard staffing operation: recruiting and vetting guards, posting them to clients on rotating shifts and covering absences.', 'Built an in-house guard training programme. Competitors then hired trained guards away, which changed how the firm trains, deploys and keeps staff.', 'Owns vendor relationships, buying and planning across the units.'] },
     { init: 'TA', name: 'Techy Ahead', when: 'Since 2021', short: 'The technology arm of Go Ahead. Maker of the Usomi school platform.', intro: 'The technology company inside Go Ahead RDC, bringing software and IT services to local schools and firms.', points: ['Built and launched Usomi, a school management platform for secondary schools: finances, student transport, grades and reports.', 'Builds websites for local companies.', 'Gives ongoing IT support and consulting to private firms.'] },
-    { init: 'ZP', name: 'Zero Panne', when: 'Since 2022', short: 'A mobile garage service that brings vehicle repair to the customer.', intro: 'Co-founder of a mobile vehicle maintenance company in Goma.', points: ['Tested the market informally for 18 months, then registered the company as a SARL under OHADA law.', 'Co-wrote the business plan: market study, Business Model Canvas, competitive position and three-year projections.', 'Secured $21,000 in COPA funding plus $2,000 of personal capital to buy a mobile workshop vehicle.'] },
-    { init: 'CR', name: 'CRES', when: '2018 to 2022', short: 'A research centre turned technology transfer centre. Home of Ujuzi.', intro: 'Co-founder and programme manager of the Centre de Recherche et d’Expertise Scientifique, a research centre that became a technology transfer centre.', points: ['Designed and ran Ujuzi, a programming course: recruited 140 students and guided 30 to completion.', 'Managed an $8,000 budget over two years and oversaw the curriculum and instructors.', 'Deployed a Moodle learning platform for more than 100 users.', 'CRES gave rise to Zero Panne and to i-kiota, a startup accelerator.'] }
+    { init: 'ZP', name: 'Zero Panne', url: 'https://zeropanne.ikiotahub.com', when: 'Since 2022', short: 'A mobile garage service that brings vehicle repair to the customer.', intro: 'Co-founder of a mobile vehicle maintenance company in Goma.', points: ['Tested the market informally for 18 months, then registered the company as a SARL under OHADA law.', 'Co-wrote the business plan: market study, Business Model Canvas, competitive position and three-year projections.', 'Secured $21,000 in COPA funding plus $2,000 of personal capital to buy a mobile workshop vehicle.'] },
+    { init: 'CR', name: 'CRES', url: 'https://le-cres.org', when: '2018 to 2022', short: 'A research centre turned technology transfer centre. Home of Ujuzi.', intro: 'Co-founder and programme manager of the Centre de Recherche et d’Expertise Scientifique, a research centre that became a technology transfer centre.', points: ['Designed and ran Ujuzi, a programming course: recruited 140 students and guided 30 to completion.', 'Managed an $8,000 budget over two years and oversaw the curriculum and instructors.', 'Deployed a Moodle learning platform for more than 100 users.', 'CRES gave rise to Zero Panne and to i-kiota, a startup accelerator.'] }
   ];
 
   var jobs = [
-    { year: '2026', when: 'Sep 2026 to now', role: 'Independent technology consultant', org: 'Kigali, Rwanda', points: ['Design and deliver mobile apps for clients, from requirements to release.', 'Built the AI-checked Packet Tracer lab workflow.'] },
+    { year: '2026', when: 'Sep 2026 to now', role: 'Independent IT consultant', org: 'Kigali, Rwanda', points: ['IT consulting for clients in Kigali.', 'Built the AI-checked Packet Tracer lab workflow.'] },
     { year: '2026', when: 'Jun to Aug 2026', role: 'Research Assistant', org: 'Carnegie Mellon University Africa', points: ['Contributing author on a book on modern networking: security chapter, labs, diagrams and manuscript layout.'] },
     { year: '2026', when: 'Feb to Mar 2026', role: 'Teaching Assistant, Advanced Networks', org: 'Adventist University of Central Africa', points: ['Taught 52 students IP addressing, routing and switching, VLANs, NAT, static and dynamic routing, and ACLs.', 'Ran hands-on Cisco Packet Tracer labs, and set and marked router and switch exercises.'] },
     { year: '2026', when: 'Jan to May 2026', role: 'Teaching Assistant, Information Systems Audit', org: 'Carnegie Mellon University Africa', points: ['Taught audit frameworks to more than 10 students, focused on finding weaknesses and testing controls.', 'Wrote five audit simulations based on real compliance problems.'] },
@@ -110,9 +110,11 @@
     { year: '2025', when: 'Jul to Aug 2025', role: 'Cybersecurity Intern', org: 'Shield Tech Hub, Kigali', points: ['Built the ShieldKids parent and child Android apps on Firebase in six weeks.'] },
     { year: '2025', when: 'Jul to Aug 2025', role: 'Student Worker, Student Induction Program', org: 'Carnegie Mellon University Africa', points: ['Worked under the Mastercard Foundation programme coordinator during summer induction.', 'Redesigned the Graduate Handbook for more than 200 international students, adding local prices and weather.', 'Prepared English Enhancement Program assignments for 25 students and ran their research poster show, which drew over 50 visitors.'] },
     { year: '2024', when: '2024 to 2026', role: 'Student leadership', org: 'Carnegie Mellon University Africa', points: ['Served on the advisory committee to the Mastercard Foundation Scholars Representative.', 'Led several student clubs.'] },
+    { year: '2021', when: 'Jan 2021 to now', role: 'Co-Managing Director', org: 'Go Ahead RDC, Goma, DRC', points: ['Co-manage a multisectoral firm: private security services, a technology arm (Techy Ahead), agribusiness and transport.', 'Run the guard staffing operation: recruiting and vetting, rotating shift rosters and cover for absences.', 'Designed an in-house guard training programme and changed how the firm trains, deploys and keeps staff after competitors hired trained guards away.', 'Own vendor relationships, procurement and planning across the units; directed delivery of the Usomi school platform.'] },
     { year: '2021', when: 'Oct 2021 to Sep 2024', role: 'IT Technician Consultant', org: 'Ets Belle Vie, Goma, DRC', points: ['Ran IT for more than 20 staff: computers, network, accounts and business software.', 'Fleet system for 70+ heavy vehicles, ten-year backup and recovery, and the company website.'] },
     { year: '2021', when: 'Mar to Jul 2021', role: 'Network Technician Intern', org: 'Kenya Power and Lighting Company', points: ['Installed and maintained Cisco routers, switches and IP phones across four floors.', 'Spliced fibre optic cable and supported radio repeater sites.', 'Supported more than 50 staff in five departments.'] },
-    { year: '2019', when: 'Jan 2019 to Aug 2021', role: 'Graphic Designer, Yearbook Office', org: 'University of Eastern Africa Baraton, Kenya', points: ['Designed two 200-page yearbooks in Adobe InDesign and negotiated the printing contract, for over 1,500 students.', 'Photographed weekly events and ran the office social media.'] }
+    { year: '2019', when: 'Jan 2019 to Aug 2021', role: 'Graphic Designer, Yearbook Office', org: 'University of Eastern Africa Baraton, Kenya', points: ['Designed two 200-page yearbooks in Adobe InDesign and negotiated the printing contract, for over 1,500 students.', 'Photographed weekly events and ran the office social media.'] },
+    { year: '2018', when: 'Oct 2018 to Jul 2022', role: 'Co-founder and Programme Manager', org: 'CRES, Goma, DRC', points: ['Co-founded a research centre that became a technology transfer centre, and later spun out Zero Panne and the i-kiota accelerator.', 'Designed and ran Ujuzi, a programming upskilling course: recruited 140 students and guided 30 to completion.', 'Managed an $8,000 budget over two years, supervised curriculum development and coordinated instructors.', 'Deployed and administered a Moodle platform for more than 100 users.'] },
   ];
 
   var skills = [
@@ -152,7 +154,7 @@
       ['Python', 'The Packet Tracer validation workflow.'],
       ['Bash', 'Ubuntu hardening scripts from the UPMS report.'],
       ['SQL', 'Coursework and the Usomi platform.'],
-      ['Flutter and Dart', 'Freelance mobile apps for clients in Kigali.'],
+      ['Flutter and Dart', 'Cross-platform mobile development; ShieldKids and client work.'],
       ['Android', 'The ShieldKids parent and child apps.'],
       ['PHP and WordPress', 'The Ets Belle Vie website.'],
       ['LLM tooling', 'Drives the Packet Tracer configuration workflow.'],
@@ -374,7 +376,7 @@
 
   /* ---------- Rotating word ---------- */
 
-  var rotWords = ['secure systems', 'networks', 'mobile apps', 'training programmes', 'businesses'];
+  var rotWords = ['secure systems', 'networks', 'training programmes', 'businesses'];
   var rotEl = document.querySelector('#rotator .rot-word');
   var rotI = 0;
   if (!reduced) {
@@ -567,7 +569,7 @@
     head.appendChild(badge); head.appendChild(names);
     card.appendChild(head);
     card.appendChild(el('span', 'v-short', v.short));
-    card.appendChild(el('span', 'v-more', 'Read more'));
+    card.appendChild(el('span', 'v-more', v.url ? v.url.replace(/^https?:\/\//, '') + '  \u2192  Read more' : 'Read more'));
     card.addEventListener('click', function () { openVenture(i); });
     grid.appendChild(card);
   });
@@ -581,6 +583,9 @@
     var list = document.getElementById('dlg-points');
     list.innerHTML = '';
     v.points.forEach(function (p) { list.appendChild(el('li', null, p)); });
+    var site = document.getElementById('dlg-site');
+    if (v.url) { site.hidden = false; site.href = v.url; site.textContent = 'Visit ' + v.url.replace(/^https?:\/\//, ''); }
+    else site.hidden = true;
     var nextBtn = document.getElementById('dlg-next');
     nextBtn.innerHTML = '';
     nextBtn.appendChild(document.createTextNode('Next: ' + nextV.name + ' '));
@@ -623,7 +628,7 @@
       });
       rail.appendChild(rb);
     }
-    var item = el('div', 'tl-item' + (i === 0 ? ' is-now' : ''));
+    var item = el('div', 'tl-item' + (/to now$/.test(j.when) ? ' is-now' : ''));
     item.appendChild(el('p', 'tl-when', j.when));
     item.appendChild(el('h2', null, j.role));
     item.appendChild(el('p', 'tl-org', j.org));
@@ -718,7 +723,7 @@
 
   var commands = {
     help: function () { return ['Commands:', '  about      who I am', '  work       list the projects', '  ventures   the four companies', '  skills     the skill groups', '  cv         download the CV', '  contact    how to reach me', '  theme      switch day and night', '  go <page>  open a section (about, work, ventures, experience, skills)', '  ping       check the line', '  whoami     you, as far as I can tell', '  clear      wipe the screen', '  exit       close the terminal'].join('\n'); },
-    about: function () { return 'Nick Azaria. IT and cybersecurity professional in Kigali. MS in IT (Cybersecurity), CMU Africa, 2026. Builds secure systems, teaches networking and runs businesses.'; },
+    about: function () { return 'Nick Azaria. IT and cybersecurity professional in Kigali. MS in IT (Cybersecurity), CMU Africa, 2026. Builds secure systems, teaches networking and co-manages a company in Goma.'; },
     work: function () { return projects.map(function (p, i) { return (i + 1) + '. ' + p.title + '  (' + p.period + ')'; }).join('\n'); },
     ventures: function () { return ventures.map(function (v) { return v.name + ': ' + v.short; }).join('\n'); },
     skills: function () { return skills.map(function (g) { return g.group + ': ' + g.items.map(function (i) { return i[0]; }).join(', '); }).join('\n'); },
