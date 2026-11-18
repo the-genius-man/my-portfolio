@@ -34,4 +34,4 @@ flowchart LR
 
 ## Updating content
 
-Projects, ventures, roles and skills live in the arrays at the top of `main.js`. Edit them there and push; GitHub Pages republishes automatically.
+Projects, ventures, roles and skills live in the arrays at the top of `main.js`. Edit them there and push; GitHub Pages republishes automatically. When you change `main.js` or `styles.css`, also bump the `?v=` value on their two tags in `index.html`, so browsers fetch the new files instead of a cached copy.
