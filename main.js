@@ -615,17 +615,34 @@
         if (g === group) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
       });
     }
+    var items = Array.prototype.slice.call(timeline.querySelectorAll('.tl-item'));
     function onScroll() {
       if (!timeline.offsetParent) return;
       var fixed = getComputedStyle(scroller).overflowY !== 'visible';
       var top = fixed ? scroller.getBoundingClientRect().top : 0;
+      var tlTop = timeline.getBoundingClientRect().top;
+      // the line ends at the centre of the last point
+      var last = items[items.length - 1];
+      var end = last.getBoundingClientRect().top - tlTop + 14;
+      timeline.style.setProperty('--tl-end', end + 'px');
+      // at the bottom of the list, the last year counts as reached
+      var atEnd = fixed ? scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 4
+                        : window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
       var active = groups[0];
       groups.forEach(function (g) { if (g.getBoundingClientRect().top - top <= 12) active = g; });
+      if (atEnd) active = groups[groups.length - 1];
       setYear(active);
-      var tlTop = timeline.getBoundingClientRect().top;
-      var reach = (fixed ? top : 0) + (fixed ? scroller.clientHeight : window.innerHeight) * 0.42 - tlTop;
-      timeline.style.setProperty('--tl-progress', Math.max(0, Math.min(timeline.scrollHeight, reach)) + 'px');
+      var view = fixed ? scroller.clientHeight : window.innerHeight;
+      var reach = (fixed ? top : 0) + view * 0.55 - tlTop;
+      var progress = atEnd ? end : Math.max(0, Math.min(end, reach));
+      timeline.style.setProperty('--tl-progress', progress + 'px');
+      // light up every point the line has reached
+      items.forEach(function (it) {
+        var y = it.getBoundingClientRect().top - tlTop + 14;
+        it.classList.toggle('is-reached', y <= progress + 1);
+      });
     }
+    window.addEventListener('resize', onScroll);
     scroller.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });
     setYear(groups[0]);
